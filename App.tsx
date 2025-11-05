@@ -27,6 +27,11 @@ import TenantManager from './components/TenantManager';
 import InstitutionalReports from './components/InstitutionalReports';
 // Version Selector
 import VersionSelector from './components/VersionSelector';
+// Premium Components
+import { SetupWizard } from './components/premium/SetupWizard';
+import MasterDashboard from './components/premium/MasterDashboard';
+import { PremiumLogin } from './components/premium/PremiumLogin';
+import { authService } from './services/premium';
 
 export default function App() {
   const [selectedVersion, setSelectedVersion] = useState<'standard' | 'premium' | null>(null);
@@ -35,11 +40,31 @@ export default function App() {
   const [auditLog, setAuditLog] = useState<AuditRecord[]>([]);
   const [proposalLog, setProposalLog] = useState<TeamProposal[]>([]);
   const [teams, setTeams] = useState<TeamComposition[]>([]);
+  const [showSetupWizard, setShowSetupWizard] = useState(false);
+  const [showPremiumLogin, setShowPremiumLogin] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Check for saved version selection on mount
   useEffect(() => {
-    const savedVersion = localStorage.getItem('sisgead-version') as 'standard' | 'premium' | null;
-    setSelectedVersion(savedVersion);
+    // Verificar se já tem usuário Premium cadastrado
+    const hasSetup = !authService.isFirstTimeSetup();
+    const isAuth = authService.isAuthenticated();
+    
+    if (hasSetup && !isAuth) {
+      // Tem cadastro mas não está autenticado → ir direto para login Premium
+      setSelectedVersion('premium');
+      setShowPremiumLogin(true);
+      setShowSetupWizard(false);
+    } else if (isAuth) {
+      // Já está autenticado → ir para dashboard
+      setSelectedVersion('premium');
+      setIsAuthenticated(true);
+      setShowPremiumLogin(false);
+      setShowSetupWizard(false);
+    } else {
+      // Primeira vez → mostrar seletor
+      setSelectedVersion(null);
+    }
   }, []);
 
   const saveAllData = useCallback(async (data: AllData) => {
@@ -88,7 +113,6 @@ export default function App() {
         // One-time migration from legacy localStorage to IndexedDB
         const legacyAuditLog = loadFromStorage(AUDIT_LOG_KEY, isValidAuditLog, []);
         if (legacyAuditLog.length > 0) {
-          console.log("Migrating legacy data from localStorage to IndexedDB...");
           const legacyProposalLog = loadFromStorage(PROPOSAL_LOG_KEY, isValidProposalLog, []);
           const legacyTeams = loadFromStorage(TEAMS_KEY, isValidTeamsLog, []);
           await saveToDB({ auditLog: legacyAuditLog, proposalLog: legacyProposalLog, teams: legacyTeams });
@@ -318,6 +342,54 @@ A aplicação iniciará com um estado limpo para evitar problemas. Verifique o c
 
   const handleVersionSelection = (version: 'standard' | 'premium') => {
     setSelectedVersion(version);
+    // Não salvar no localStorage - causa problema de navegação
+    // localStorage.setItem('sisgead-version', version);
+    
+    if (version === 'premium') {
+      // Verificar se já está autenticado no Premium
+      const isAuthenticatedPremium = authService.isAuthenticated();
+      
+      if (isAuthenticatedPremium) {
+        setIsAuthenticated(true);
+        setShowSetupWizard(false);
+      } else {
+        // Verificar se é primeira configuração
+        const isFirstTime = authService.isFirstTimeSetup();
+        
+        if (isFirstTime) {
+          setShowSetupWizard(true);
+          setShowPremiumLogin(false);
+          setIsAuthenticated(false);
+        } else {
+          setShowSetupWizard(false);
+          setShowPremiumLogin(true);
+          setIsAuthenticated(false);
+        }
+      }
+    }
+  };
+
+  const handleSetupComplete = () => {
+    setShowSetupWizard(false);
+    setIsAuthenticated(true);
+    
+    // Marcar setup como completo no localStorage
+    localStorage.setItem('premium-setup-completed', 'true');
+  };
+
+  const handleSetupCancel = () => {
+    setShowSetupWizard(false);
+    setSelectedVersion(null);
+  };
+
+  const handlePremiumLogin = (userSession: any) => {
+    setShowPremiumLogin(false);
+    setIsAuthenticated(true);
+  };
+
+  const handlePremiumLoginCancel = () => {
+    setShowPremiumLogin(false);
+    setSelectedVersion(null);
   };
   
   // Show version selector if no version has been chosen
@@ -330,46 +402,103 @@ A aplicação iniciará com um estado limpo para evitar problemas. Verifique o c
       </SmartHintsProvider>
     );
   }
-  
+
+  // Show Setup Wizard for Premium first-time setup
+  if (selectedVersion === 'premium' && showSetupWizard) {
+    return (
+      <SmartHintsProvider>
+        <SetupWizard 
+          onComplete={handleSetupComplete}
+          onCancel={handleSetupCancel}
+        />
+      </SmartHintsProvider>
+    );
+  }
+
+  // Premium Login for existing users
+  if (selectedVersion === 'premium' && showPremiumLogin) {
+    return (
+      <SmartHintsProvider>
+        <MainLayout>
+          <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+            <PremiumLogin
+              onLogin={handlePremiumLogin}
+              onCancel={handlePremiumLoginCancel}
+            />
+          </div>
+        </MainLayout>
+      </SmartHintsProvider>
+    );
+  }
+
+  // Premium Dashboard for authenticated users
+  if (selectedVersion === 'premium' && isAuthenticated) {
+    return (
+      <SmartHintsProvider>
+        <MasterDashboard />
+      </SmartHintsProvider>
+    );
+  }
+
+  // Premium - caso não autenticado e sem setup wizard (fallback)
+  if (selectedVersion === 'premium' && !isAuthenticated && !showSetupWizard) {
+    setShowSetupWizard(true);
+    return (
+      <SmartHintsProvider>
+        <MainLayout>
+          <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+            <p className="text-lg text-brand-secondary">Preparando configuração Premium...</p>
+          </div>
+        </MainLayout>
+      </SmartHintsProvider>
+    );
+  }
+
+  // Standard version (2.0) flow
+  if (selectedVersion === 'standard') {
+    return (
+      <SmartHintsProvider>
+        <MainLayout>
+          {storageMode === 'loading' ? (
+            <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+              <p className="text-lg text-brand-secondary">Carregando base de dados...</p>
+            </div>
+          ) : (
+            <Routes>
+              <Route path="/" element={
+                <AdminPortal
+                  auditLog={auditLog}
+                  proposalLog={proposalLog}
+                  teams={teams}
+                  updateAuditLog={updateAuditLog}
+                  updateProposalLog={updateProposalLog}
+                  updateTeams={updateTeams}
+                  handleFullBackup={handleFullBackup}
+                  mergeAllData={mergeAllData}
+                  storageMode={storageMode}
+                  handleSwitchToFS={handleSwitchToFS}
+                />
+              }/>
+              <Route path="/user" element={
+                <UserPortal 
+                  checkIfCpfExists={checkIfCpfExists}
+                  onRecordSubmit={handleUserRecordSubmit}
+                />
+              } />
+            </Routes>
+          )}
+        </MainLayout>
+      </SmartHintsProvider>
+    );
+  }
+
+  // Fallback (shouldn't reach here)
   return (
     <SmartHintsProvider>
       <MainLayout>
-        {storageMode === 'loading' ? (
-          <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
-            <p className="text-lg text-brand-secondary">Carregando base de dados...</p>
-          </div>
-        ) : (
-          <Routes>
-            <Route path="/" element={
-              <AdminPortal
-                auditLog={auditLog}
-                proposalLog={proposalLog}
-                teams={teams}
-                updateAuditLog={updateAuditLog}
-                updateProposalLog={updateProposalLog}
-                updateTeams={updateTeams}
-                handleFullBackup={handleFullBackup}
-                mergeAllData={mergeAllData}
-                storageMode={storageMode}
-                handleSwitchToFS={handleSwitchToFS}
-              />
-            }/>
-            <Route path="/user" element={
-              <UserPortal 
-                checkIfCpfExists={checkIfCpfExists}
-                onRecordSubmit={handleUserRecordSubmit}
-              />
-            } />
-            {/* INCREMENT 3: Super Admin Panel Routes - Only available in Premium version */}
-            {selectedVersion === 'premium' && (
-              <>
-                <Route path="/institutional" element={<SuperAdminDashboard />} />
-                <Route path="/institutional/tenants" element={<TenantManager />} />
-                <Route path="/institutional/reports" element={<InstitutionalReports />} />
-              </>
-            )}
-          </Routes>
-        )}
+        <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+          <p className="text-lg text-brand-secondary">Carregando aplicação...</p>
+        </div>
       </MainLayout>
     </SmartHintsProvider>
   );

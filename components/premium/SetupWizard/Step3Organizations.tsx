@@ -38,15 +38,19 @@ export const Step3Organizations: React.FC<Step3Props> = ({
     setError('');
 
     try {
-      const newOrg = await organizationService.create({
+      const result = await organizationService.create({
         institutionId: institution.id,
         name: orgName.trim(),
         parentOrgId: undefined,
         createdBy: masterUser.id
       });
 
-      setOrganizations([...organizations, newOrg]);
-      setOrgName('');
+      if (result.success && result.organization) {
+        setOrganizations([...organizations, result.organization]);
+        setOrgName('');
+      } else {
+        setError(result.error || 'Erro ao criar organização');
+      }
     } catch (err: any) {
       setError(err.message || 'Erro ao criar organização');
     } finally {

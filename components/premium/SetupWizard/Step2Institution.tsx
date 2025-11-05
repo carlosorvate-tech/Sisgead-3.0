@@ -3,7 +3,7 @@
  */
 
 import React, { useState } from 'react';
-import { institutionService } from '../../../services/premium';
+import { institutionService, authService } from '../../../services/premium';
 import type { User } from '../../../types/premium/user';
 import type { Institution, InstitutionType } from '../../../types/premium/institution';
 import { InstitutionType as InstitutionTypeEnum } from '../../../types/premium/institution';
@@ -33,6 +33,67 @@ export const Step2Institution: React.FC<Step2Props> = ({ masterUser, onNext, onB
     contactPhone: ''
   });
 
+  // Função para validar CNPJ
+  const validateCNPJ = (cnpj: string): boolean => {
+    const cleanCNPJ = cnpj.replace(/\D/g, '');
+    
+    if (cleanCNPJ.length !== 14) return false;
+    
+    // Verifica sequências repetidas
+    if (/^(\d)\1+$/.test(cleanCNPJ)) return false;
+    
+    // Algoritmo de validação do CNPJ
+    const weights1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    const weights2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    
+    let sum = 0;
+    for (let i = 0; i < 12; i++) {
+      sum += parseInt(cleanCNPJ[i]) * weights1[i];
+    }
+    
+    let digit1 = (sum % 11) < 2 ? 0 : 11 - (sum % 11);
+    if (digit1 !== parseInt(cleanCNPJ[12])) return false;
+    
+    sum = 0;
+    for (let i = 0; i < 13; i++) {
+      sum += parseInt(cleanCNPJ[i]) * weights2[i];
+    }
+    
+    let digit2 = (sum % 11) < 2 ? 0 : 11 - (sum % 11);
+    return digit2 === parseInt(cleanCNPJ[13]);
+  };
+
+  // Função para formatar CNPJ
+  const formatCNPJ = (value: string) => {
+    const numbers = value.replace(/\D/g, '');
+    if (numbers.length <= 14) {
+      return numbers
+        .replace(/(\d{2})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1/$2')
+        .replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+    }
+    return value;
+  };
+
+  const handleCnpjChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatCNPJ(e.target.value);
+    setFormData({ ...formData, cnpj: formatted });
+    // Limpar erro ao digitar
+    if (errors.cnpj) {
+      setErrors({ ...errors, cnpj: '' });
+    }
+  };
+
+  const handleCnpjBlur = () => {
+    // Validar CNPJ quando sair do campo
+    if (formData.cnpj.trim()) {
+      if (!validateCNPJ(formData.cnpj)) {
+        setErrors({ ...errors, cnpj: 'CNPJ inválido - verifique os dígitos' });
+      }
+    }
+  };
+
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
 
@@ -45,8 +106,8 @@ export const Step2Institution: React.FC<Step2Props> = ({ masterUser, onNext, onB
 
     if (!formData.cnpj.trim()) {
       newErrors.cnpj = 'CNPJ é obrigatório';
-    } else if (!/^\d{14}$/.test(formData.cnpj.replace(/\D/g, ''))) {
-      newErrors.cnpj = 'CNPJ inválido';
+    } else if (!validateCNPJ(formData.cnpj)) {
+      newErrors.cnpj = 'CNPJ inválido - verifique os dígitos';
     }
 
     if (!formData.contactEmail.trim()) {
@@ -62,12 +123,14 @@ export const Step2Institution: React.FC<Step2Props> = ({ masterUser, onNext, onB
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!validate()) return;
+    if (!validate()) {
+      return;
+    }
 
     setLoading(true);
 
     try {
-      const institution = await institutionService.create({
+      const createData = {
         name: formData.name.trim(),
         cnpj: formData.cnpj.replace(/\D/g, ''),
         type: formData.type,
@@ -77,8 +140,17 @@ export const Step2Institution: React.FC<Step2Props> = ({ masterUser, onNext, onB
           phone: formData.contactPhone.trim() || undefined
         },
         createdBy: masterUser.id
-      });
-
+      };
+      
+      const institution = await institutionService.create(createData);
+      
+      // Atualizar o institutionId do master user
+      const updated = await authService.updateUserInstitution(masterUser.id, institution.id);
+      
+      if (!updated) {
+        throw new Error('Falha ao vincular usuário à instituição');
+      }
+      
       onNext(institution);
     } catch (error: any) {
       setErrors({ submit: error.message || 'Erro ao criar instituição' });
@@ -87,21 +159,9 @@ export const Step2Institution: React.FC<Step2Props> = ({ masterUser, onNext, onB
     }
   };
 
-  const formatCnpj = (value: string): string => {
-    const numbers = value.replace(/\D/g, '');
-    if (numbers.length <= 14) {
-      return numbers
-        .replace(/(\d{2})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d)/, '$1/$2')
-        .replace(/(\d{4})(\d{1,2})$/, '$1-$2');
-    }
-    return value;
-  };
-
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+    <form onSubmit={handleSubmit} className="h-full flex flex-col space-y-4">
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-3 flex-shrink-0">
         <div className="flex items-start">
           <svg className="w-5 h-5 text-blue-600 mt-0.5 mr-3" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clipRule="evenodd" />
@@ -110,14 +170,14 @@ export const Step2Institution: React.FC<Step2Props> = ({ masterUser, onNext, onB
             <h3 className="text-sm font-semibold text-blue-900 mb-1">
               Configurar Instituição
             </h3>
-            <p className="text-sm text-blue-800">
-              Defina as informações da sua instituição. Esses dados aparecerão nos relatórios e documentos gerados.
+            <p className="text-xs text-blue-800">
+              Informações da instituição para relatórios e documentos.
             </p>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
         {/* Nome */}
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -144,8 +204,9 @@ export const Step2Institution: React.FC<Step2Props> = ({ masterUser, onNext, onB
           </label>
           <input
             type="text"
-            value={formatCnpj(formData.cnpj)}
-            onChange={(e) => setFormData({ ...formData, cnpj: e.target.value })}
+            value={formData.cnpj}
+            onChange={handleCnpjChange}
+            onBlur={handleCnpjBlur}
             className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
               errors.cnpj ? 'border-red-500' : 'border-gray-300'
             }`}
@@ -230,7 +291,7 @@ export const Step2Institution: React.FC<Step2Props> = ({ masterUser, onNext, onB
       )}
 
       {/* Botões */}
-      <div className="flex items-center justify-between pt-6 border-t border-gray-200">
+      <div className="flex items-center justify-between pt-4 border-t border-gray-200 flex-shrink-0">
         <button
           type="button"
           onClick={onBack}

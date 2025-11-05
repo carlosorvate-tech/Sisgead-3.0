@@ -35,24 +35,25 @@ class InstitutionService {
   /**
    * Cria nova instituição
    */
-  public async create(data: CreateInstitutionData): Promise<{
-    success: boolean;
-    institution?: Institution;
-    error?: string;
-  }> {
+  public async create(data: CreateInstitutionData): Promise<Institution> {
     try {
+      console.log('🏢 InstitutionService - Criando instituição:', data);
+      
       // Validar dados
-      if (!data.name || !data.contact.email) {
-        return { success: false, error: 'Dados obrigatórios faltando' };
+      if (!data.name || !data.contact?.email) {
+        console.error('❌ Dados obrigatórios faltando:', { name: data.name, email: data.contact?.email });
+        throw new Error('Dados obrigatórios faltando');
       }
 
       // Gerar slug único
       const slug = this.generateSlug(data.name);
+      console.log('📝 Slug gerado:', slug);
 
       // Verificar se slug já existe
       const exists = await this.slugExists(slug);
       if (exists) {
-        return { success: false, error: 'Já existe uma instituição com este nome' };
+        console.error('❌ Slug já existe:', slug);
+        throw new Error('Já existe uma instituição com este nome');
       }
 
       // Criar instituição
@@ -75,13 +76,16 @@ class InstitutionService {
         createdBy: data.createdBy
       };
 
+      console.log('💾 Salvando instituição:', institution);
+
       // Salvar
       await this.save(institution);
 
-      return { success: true, institution };
+      console.log('✅ Instituição criada com sucesso!');
+      return institution;
     } catch (error) {
-      console.error('Erro ao criar instituição:', error);
-      return { success: false, error: 'Erro ao criar instituição' };
+      console.error('❌ Erro ao criar instituição:', error);
+      throw error;
     }
   }
 

@@ -25,6 +25,46 @@ export const Step1MasterUser: React.FC<Step1Props> = ({ onNext, onBack }) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
 
+  // Função de validação CPF simples e robusta
+  const validateCPF = (cpf: string): { isValid: boolean; error?: string } => {
+    // Remove caracteres não numéricos
+    const cleanCpf = cpf.replace(/\D/g, '');
+    
+    // Verifica se tem 11 dígitos
+    if (cleanCpf.length !== 11) {
+      return { isValid: false, error: 'CPF deve ter 11 dígitos' };
+    }
+    
+    // Verifica se não são todos números iguais
+    if (/^(\d)\1+$/.test(cleanCpf)) {
+      return { isValid: false, error: 'CPF inválido - números iguais' };
+    }
+    
+    // Calcula primeiro dígito verificador
+    let sum = 0;
+    for (let i = 0; i < 9; i++) {
+      sum += parseInt(cleanCpf.charAt(i)) * (10 - i);
+    }
+    let remainder = (sum * 10) % 11;
+    if (remainder === 10 || remainder === 11) remainder = 0;
+    if (remainder !== parseInt(cleanCpf.charAt(9))) {
+      return { isValid: false, error: 'CPF inválido - primeiro dígito' };
+    }
+    
+    // Calcula segundo dígito verificador
+    sum = 0;
+    for (let i = 0; i < 10; i++) {
+      sum += parseInt(cleanCpf.charAt(i)) * (11 - i);
+    }
+    remainder = (sum * 10) % 11;
+    if (remainder === 10 || remainder === 11) remainder = 0;
+    if (remainder !== parseInt(cleanCpf.charAt(10))) {
+      return { isValid: false, error: 'CPF inválido - segundo dígito' };
+    }
+    
+    return { isValid: true };
+  };
+
   const validate = (): boolean => {
     const newErrors: Record<string, string> = {};
 
@@ -34,8 +74,11 @@ export const Step1MasterUser: React.FC<Step1Props> = ({ onNext, onBack }) => {
 
     if (!formData.cpf.trim()) {
       newErrors.cpf = 'CPF é obrigatório';
-    } else if (!/^\d{11}$/.test(formData.cpf.replace(/\D/g, ''))) {
-      newErrors.cpf = 'CPF inválido';
+    } else {
+      const cpfValidation = validateCPF(formData.cpf);
+      if (!cpfValidation.isValid) {
+        newErrors.cpf = cpfValidation.error || 'CPF inválido';
+      }
     }
 
     if (!formData.email.trim()) {
@@ -85,15 +128,40 @@ export const Step1MasterUser: React.FC<Step1Props> = ({ onNext, onBack }) => {
         throw new Error(result.error || 'Erro ao criar usuário master');
       }
 
+      // Salvar senha temporariamente para login automático após wizard
+      sessionStorage.setItem('temp-master-password', formData.password);
+
       onNext(result.user);
     } catch (error: any) {
-      setErrors({ submit: error.message || 'Erro ao criar usuário master' });
+      const errorMessage = error.message || 'Erro ao criar usuário master';
+      
+      // Se CPF já existe, oferecer opção de limpar dados
+      if (errorMessage.includes('CPF já cadastrado')) {
+        setErrors({ 
+          submit: `${errorMessage}. Dados de uma configuração anterior foram encontrados.`
+        });
+      } else {
+        setErrors({ submit: errorMessage });
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  const formatCpf = (value: string): string => {
+  const handleClearExistingData = () => {
+    if (window.confirm('Tem certeza que deseja limpar todos os dados da configuração anterior? Esta ação não pode ser desfeita.')) {
+      // Limpar dados do Premium
+      localStorage.removeItem('premium-users');
+      localStorage.removeItem('premium-institutions');
+      localStorage.removeItem('premium-organizations');
+      localStorage.removeItem('premium-audit-logs');
+      
+      alert('Dados limpos! Agora você pode prosseguir com a configuração.');
+      setErrors({});
+    }
+  };
+
+  const formatCpf = (value: string) => {
     const numbers = value.replace(/\D/g, '');
     if (numbers.length <= 11) {
       return numbers
@@ -104,26 +172,45 @@ export const Step1MasterUser: React.FC<Step1Props> = ({ onNext, onBack }) => {
     return value;
   };
 
+  const handleCpfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatCpf(e.target.value);
+    setFormData({ ...formData, cpf: formatted });
+    // Limpar erro ao digitar
+    if (errors.cpf) {
+      setErrors({ ...errors, cpf: '' });
+    }
+  };
+
+  const handleCpfBlur = () => {
+    // Validar CPF quando sair do campo
+    if (formData.cpf.trim()) {
+      const cpfValidation = validateCPF(formData.cpf);
+      if (!cpfValidation.isValid) {
+        setErrors({ ...errors, cpf: cpfValidation.error || 'CPF inválido' });
+      }
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-        <div className="flex items-start">
-          <svg className="w-5 h-5 text-blue-600 mt-0.5 mr-3" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-          </svg>
-          <div>
-            <h3 className="text-sm font-semibold text-blue-900 mb-1">
-              Criar Usuário Master
-            </h3>
-            <p className="text-sm text-blue-800">
-              Este será o administrador principal da sua instituição, com acesso total ao sistema.
-              Você poderá criar usuários adicionais posteriormente.
-            </p>
+    <div className="h-full">
+      <form onSubmit={handleSubmit} className="space-y-3 h-full flex flex-col">
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-3 flex-shrink-0">
+          <div className="flex items-start">
+            <svg className="w-4 h-4 text-blue-600 mt-1 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+            </svg>
+            <div>
+              <h3 className="text-sm font-semibold text-blue-900 mb-1">
+                Criar Usuário Master
+              </h3>
+              <p className="text-xs text-blue-800">
+                Usuário principal com acesso total ao sistema.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
         {/* Nome completo */}
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -150,8 +237,9 @@ export const Step1MasterUser: React.FC<Step1Props> = ({ onNext, onBack }) => {
           </label>
           <input
             type="text"
-            value={formatCpf(formData.cpf)}
-            onChange={(e) => setFormData({ ...formData, cpf: e.target.value })}
+            value={formData.cpf}
+            onChange={handleCpfChange}
+            onBlur={handleCpfBlur}
             className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
               errors.cpf ? 'border-red-500' : 'border-gray-300'
             }`}
@@ -233,34 +321,44 @@ export const Step1MasterUser: React.FC<Step1Props> = ({ onNext, onBack }) => {
             <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>
           )}
         </div>
-      </div>
-
-      {errors.submit && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p className="text-sm text-red-800">{errors.submit}</p>
         </div>
-      )}
 
-      {/* Botões */}
-      <div className="flex items-center justify-between pt-6 border-t border-gray-200">
-        {onBack && (
-          <button
-            type="button"
-            onClick={onBack}
-            className="px-6 py-2 text-gray-700 hover:text-gray-900 font-medium"
-          >
-            ← Voltar
-          </button>
+        {errors.submit && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <p className="text-sm text-red-800 mb-3">{errors.submit}</p>
+            {errors.submit.includes('CPF já cadastrado') && (
+              <button
+                type="button"
+                onClick={handleClearExistingData}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors"
+              >
+                🗑️ Limpar Dados Anteriores
+              </button>
+            )}
+          </div>
         )}
-        
-        <button
-          type="submit"
-          disabled={loading}
-          className="ml-auto px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          {loading ? 'Criando...' : 'Próximo →'}
-        </button>
-      </div>
-    </form>
+
+        {/* Botões - Fixos na parte inferior */}
+        <div className="flex items-center justify-between pt-4 border-t border-gray-200 mt-4 flex-shrink-0">
+          {onBack && (
+            <button
+              type="button"
+              onClick={onBack}
+              className="px-6 py-2 text-gray-700 hover:text-gray-900 font-medium"
+            >
+              ← Voltar
+            </button>
+          )}
+          
+          <button
+            type="submit"
+            disabled={loading}
+            className="ml-auto px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {loading ? 'Criando...' : 'Próximo →'}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };

@@ -207,7 +207,7 @@ class AuthService {
     // Carregar usuários do storage
     const users = await this.loadUsers();
     
-    // Buscar usuário por CPF
+    // Buscar usuário por CPF (sem formatação)
     const user = users.find(u => u.profile.cpf === cpf);
     
     if (!user) {
@@ -509,6 +509,28 @@ class AuthService {
     } catch (error) {
       console.error('Erro ao criar usuário master:', error);
       return { success: false, error: 'Erro ao criar usuário' };
+    }
+  }
+
+  /**
+   * Atualiza o institutionId de um usuário
+   * Usado após criar a instituição no wizard para vincular o master user
+   */
+  public async updateUserInstitution(userId: string, institutionId: string): Promise<boolean> {
+    try {
+      const usersData = localStorage.getItem('premium-users');
+      if (!usersData) return false;
+
+      const users = JSON.parse(usersData);
+      if (!users[userId]) return false;
+
+      users[userId].institutionId = institutionId;
+      localStorage.setItem('premium-users', JSON.stringify(users));
+      
+      return true;
+    } catch (error) {
+      console.error('Erro ao atualizar instituição do usuário:', error);
+      return false;
     }
   }
 
