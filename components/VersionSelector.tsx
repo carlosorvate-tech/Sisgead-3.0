@@ -31,8 +31,11 @@ export function VersionSelector({ onVersionSelected }: VersionSelectorProps) {
           <p className="text-xl text-gray-600 mb-2">
             Sistema Inteligente de Gestão de Equipes de Alto Desempenho
           </p>
-          <p className="text-lg text-gray-500">
+          <p className="text-lg text-gray-500 mb-4">
             Escolha a versão ideal para sua organização
+          </p>
+          <p className="text-sm text-gray-400">
+            Desenvolvido por <strong>INFINITUS Sistemas Inteligentes</strong> • CNPJ: 09.371.580/0001-06
           </p>
         </div>
 

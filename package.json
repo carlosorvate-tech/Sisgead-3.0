@@ -1,15 +1,15 @@
 {
   "name": "sisgead",
   "private": true,
-  "version": "2.0.0",
+  "version": "3.0.0",
   "type": "module",
-  "homepage": "https://carlosorvate-tech.github.io/sisgead-2.0",
+  "homepage": "https://carlosorvate-tech.github.io/Sisgead-3.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build && copy dist\\index.html dist\\404.html",
-    "deploy": "gh-pages -d dist -r https://github.com/carlosorvate-tech/sisgead-2.0.git"
+    "deploy": "gh-pages -d dist -r https://github.com/carlosorvate-tech/Sisgead-3.0.git"
   },
   "dependencies": {
     "@google/genai": "^1.26.0",
