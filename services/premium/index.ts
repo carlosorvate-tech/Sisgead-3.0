@@ -12,3 +12,4 @@ export { assessmentService } from './assessmentService';
 export { auditService } from './auditService';
 export { teamMemberService } from './teamMemberService';
 export { kpiService } from './kpiService';
+export { notificationService } from './notificationService';
