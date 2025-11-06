@@ -66,7 +66,13 @@ export const MasterDashboard: React.FC = () => {
       setOrganizations(orgs);
 
       // Carregar usuários
-      const usersData = await userService.list({ institutionId: inst.id });
+      let usersData = await userService.list({ institutionId: inst.id });
+      
+      // Garantir que o usuário atual está na lista
+      if (!usersData.find(u => u.id === user.id)) {
+        usersData = [user, ...usersData];
+      }
+      
       setUsers(usersData);
 
       // Calcular métricas
@@ -421,28 +427,44 @@ export const MasterDashboard: React.FC = () => {
               ) : (
                 organizations.map((org) => (
                   <div key={org.id} className="px-6 py-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
-                        <div className={`w-12 h-12 rounded-full flex items-center justify-center`} 
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-start space-x-4 flex-1">
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0`} 
                              style={{ backgroundColor: org.color + '20' }}>
                           <span className="text-xl">{org.icon || '🏢'}</span>
                         </div>
-                        <div>
+                        <div className="flex-1">
                           <h3 className="font-semibold text-gray-900">{org.name}</h3>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-gray-500 mb-2">
                             {org.description || 'Sem descrição'}
                           </p>
+                          <div className="flex flex-wrap gap-4 text-xs text-gray-600">
+                            <div className="flex items-center">
+                              <span className="font-medium mr-1">ID:</span>
+                              <span className="font-mono">{org.id}</span>
+                            </div>
+                            <div className="flex items-center">
+                              <span className="font-medium mr-1">Membros:</span>
+                              <span>{org.stats?.totalMembers || 0}</span>
+                            </div>
+                            <div className="flex items-center">
+                              <span className="font-medium mr-1">Criada em:</span>
+                              <span>{new Date(org.createdAt).toLocaleDateString('pt-BR')}</span>
+                            </div>
+                            {org.parentId && (
+                              <div className="flex items-center">
+                                <span className="font-medium mr-1">Sub-organização</span>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-4">
+                      <div className="flex items-center space-x-3">
                         <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                           org.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
                         }`}>
                           {org.status === 'active' ? 'Ativa' : org.status}
                         </span>
-                        <button className="text-blue-600 hover:text-blue-800 font-medium">
-                          Ver Detalhes →
-                        </button>
                       </div>
                     </div>
                   </div>
@@ -472,33 +494,59 @@ export const MasterDashboard: React.FC = () => {
               ) : (
                 users.map((user) => (
                   <div key={user.id} className="px-6 py-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                          <span className="text-lg font-semibold text-gray-600">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-start space-x-4 flex-1">
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                          <span className="text-lg font-bold text-white">
                             {user.profile.name.charAt(0).toUpperCase()}
                           </span>
                         </div>
-                        <div>
+                        <div className="flex-1">
                           <h3 className="font-semibold text-gray-900">{user.profile.name}</h3>
-                          <p className="text-sm text-gray-500">{user.profile.email}</p>
+                          <p className="text-sm text-gray-500 mb-2">{user.profile.email}</p>
+                          <div className="flex flex-wrap gap-4 text-xs text-gray-600">
+                            <div className="flex items-center">
+                              <span className="font-medium mr-1">ID:</span>
+                              <span className="font-mono">{user.id}</span>
+                            </div>
+                            {user.profile.department && (
+                              <div className="flex items-center">
+                                <span className="font-medium mr-1">Depto:</span>
+                                <span>{user.profile.department}</span>
+                              </div>
+                            )}
+                            {user.profile.phone && (
+                              <div className="flex items-center">
+                                <span className="font-medium mr-1">Tel:</span>
+                                <span>{user.profile.phone}</span>
+                              </div>
+                            )}
+                            <div className="flex items-center">
+                              <span className="font-medium mr-1">Organizações:</span>
+                              <span>{user.organizationIds.length}</span>
+                            </div>
+                            {user.createdAt && (
+                              <div className="flex items-center">
+                                <span className="font-medium mr-1">Criado em:</span>
+                                <span>{new Date(user.createdAt).toLocaleDateString('pt-BR')}</span>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-4">
+                      <div className="flex items-center space-x-3">
                         <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
                           user.role === 'master' ? 'bg-purple-100 text-purple-800' :
                           user.role === 'org_admin' ? 'bg-blue-100 text-blue-800' :
-                          user.role === 'user' ? 'bg-green-100 text-green-800' :
+                          user.role === 'member' ? 'bg-green-100 text-green-800' :
                           'bg-gray-100 text-gray-800'
                         }`}>
                           {user.role === 'master' ? '👑 Master' :
-                           user.role === 'org_admin' ? '⚙️ Admin' :
-                           user.role === 'user' ? '👤 Usuário' : '👁️ Viewer'}
+                           user.role === 'org_admin' ? '👔 Admin' :
+                           user.role === 'member' ? '👤 Membro' : '👁️ Viewer'}
                         </span>
-                        <span className={`w-2 h-2 rounded-full ${user.isActive ? 'bg-green-400' : 'bg-gray-400'}`}></span>
-                        <button className="text-blue-600 hover:text-blue-800 font-medium">
-                          Gerenciar →
-                        </button>
+                        <span className={`w-2 h-2 rounded-full ${user.isActive ? 'bg-green-400' : 'bg-gray-400'}`} 
+                              title={user.isActive ? 'Ativo' : 'Inativo'}></span>
                       </div>
                     </div>
                   </div>

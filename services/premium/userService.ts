@@ -340,7 +340,15 @@ class UserService {
 
   private async getAll(): Promise<User[]> {
     const data = localStorage.getItem(this.STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
+    if (!data) return [];
+    
+    try {
+      const parsed = JSON.parse(data);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      console.error('Erro ao parsear usuários:', error);
+      return [];
+    }
   }
 
   private saveAll(users: User[]): void {
