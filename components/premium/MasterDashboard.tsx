@@ -9,6 +9,7 @@ import type { User, UserRole } from '../../types/premium/user';
 import type { Institution } from '../../types/premium/institution';
 import type { Organization } from '../../types/premium/organization';
 import { CreateOrganizationModal, CreateUserModal } from './modals';
+import { InstitutionConsolidationView } from './consolidation/InstitutionConsolidationView';
 
 interface DashboardMetrics {
   totalUsers: number;
@@ -38,7 +39,7 @@ export const MasterDashboard: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [metrics, setMetrics] = useState<DashboardMetrics | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'overview' | 'organizations' | 'users' | 'activity'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'organizations' | 'users' | 'activity' | 'consolidation'>('overview');
   
   // Estados dos modais
   const [showCreateOrgModal, setShowCreateOrgModal] = useState(false);
@@ -263,6 +264,7 @@ export const MasterDashboard: React.FC = () => {
               { id: 'overview', label: 'Visão Geral', icon: '📊' },
               { id: 'organizations', label: 'Organizações', icon: '🏢' },
               { id: 'users', label: 'Usuários', icon: '👥' },
+              { id: 'consolidation', label: 'Consolidação', icon: '📋' },
               { id: 'activity', label: 'Atividade', icon: '📈' }
             ].map((tab) => (
               <button
@@ -553,6 +555,12 @@ export const MasterDashboard: React.FC = () => {
                 ))
               )}
             </div>
+          </div>
+        )}
+
+        {activeTab === 'consolidation' && (
+          <div id="consolidation-section">
+            <InstitutionConsolidationView />
           </div>
         )}
 
