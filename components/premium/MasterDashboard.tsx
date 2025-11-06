@@ -214,45 +214,45 @@ export const MasterDashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header Premium */}
+      {/* Header Premium - Versão Compacta */}
       <header className="bg-gradient-to-r from-blue-900 via-blue-800 to-purple-900 shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
-                <span className="text-2xl">🏢</span>
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                <span className="text-xl">🏢</span>
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-white">
+                <h1 className="text-xl font-bold text-white">
                   {institution.name}
                 </h1>
-                <p className="text-blue-100 mt-1">
+                <p className="text-blue-100 text-xs mt-0.5">
                   SISGEAD Premium 3.0 - Dashboard Master
                 </p>
               </div>
             </div>
             
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
               <div className="text-right">
-                <p className="text-lg font-semibold text-white">{currentUser.profile.name}</p>
-                <div className="flex items-center justify-end mt-1">
-                  <span className="text-2xl mr-2">👑</span>
-                  <span className="text-sm bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full font-medium">
+                <p className="text-sm font-semibold text-white">{currentUser.profile.name}</p>
+                <div className="flex items-center justify-end mt-0.5">
+                  <span className="text-lg mr-1">👑</span>
+                  <span className="text-xs bg-yellow-400 text-yellow-900 px-2 py-0.5 rounded-full font-medium">
                     Master
                   </span>
                 </div>
               </div>
               
-              <div className="flex flex-col gap-2">
+              <div className="flex gap-2">
                 <button
                   onClick={handleSwitchToStandard}
-                  className="px-4 py-2 bg-white bg-opacity-20 text-white rounded-lg text-sm font-medium hover:bg-opacity-30 transition-all duration-200"
+                  className="px-3 py-1.5 bg-white bg-opacity-20 text-white rounded-lg text-xs font-medium hover:bg-opacity-30 transition-all duration-200"
                 >
                   ← Modo Standard
                 </button>
                 <button
                   onClick={handleLogout}
-                  className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors"
+                  className="px-3 py-1.5 bg-red-600 text-white rounded-lg text-xs font-medium hover:bg-red-700 transition-colors"
                 >
                   🚪 Sair
                 </button>
@@ -289,23 +289,23 @@ export const MasterDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Success Banner */}
-        <div className="bg-gradient-to-r from-green-50 to-green-100 border border-green-200 rounded-xl p-6 mb-8">
+      {/* Main Content - Versão Compacta */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        {/* Success Banner - Compacto */}
+        <div className="bg-gradient-to-r from-green-50 to-green-100 border border-green-200 rounded-lg p-3 mb-4">
           <div className="flex items-start">
             <div className="flex-shrink-0">
-              <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
               </div>
             </div>
-            <div className="ml-4 flex-1">
-              <h3 className="text-lg font-semibold text-green-900">
+            <div className="ml-3 flex-1">
+              <h3 className="text-sm font-semibold text-green-900">
                 🎉 Sistema Premium Configurado com Sucesso!
               </h3>
-              <p className="text-sm text-green-800 mt-1">
+              <p className="text-xs text-green-800 mt-0.5">
                 Sua instituição <strong>{institution.name}</strong> está operacional. 
                 Você tem acesso completo a todas as funcionalidades multi-tenant.
               </p>
@@ -315,8 +315,8 @@ export const MasterDashboard: React.FC = () => {
 
         {activeTab === 'overview' && (
           <div className="space-y-8">
-            {/* Metrics Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Metrics Cards - Versão Compacta */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {metrics && [
                 {
                   title: 'Total de Usuários',
@@ -351,21 +351,21 @@ export const MasterDashboard: React.FC = () => {
                   trend: '+8%'
                 }
               ].map((metric, index) => (
-                <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                  <div className="flex items-center justify-between">
-                    <div className={`p-3 rounded-lg bg-${metric.color}-100`}>
-                      <span className="text-2xl">{metric.icon}</span>
+                <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className={`p-2 rounded-lg bg-${metric.color}-100`}>
+                      <span className="text-xl">{metric.icon}</span>
                     </div>
-                    <span className={`text-sm font-medium px-2 py-1 rounded-full ${
+                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
                       metric.trend.startsWith('+') ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'
                     }`}>
                       {metric.trend}
                     </span>
                   </div>
-                  <div className="mt-4">
-                    <p className="text-sm font-medium text-gray-600">{metric.title}</p>
-                    <p className="text-3xl font-bold text-gray-900 mt-1">{metric.value}</p>
-                    <p className="text-sm text-gray-500 mt-1">{metric.subtitle}</p>
+                  <div className="mt-2">
+                    <p className="text-xs font-medium text-gray-600">{metric.title}</p>
+                    <p className="text-2xl font-bold text-gray-900 mt-1">{metric.value}</p>
+                    <p className="text-xs text-gray-500 mt-0.5">{metric.subtitle}</p>
                   </div>
                 </div>
               ))}
@@ -394,19 +394,19 @@ export const MasterDashboard: React.FC = () => {
               </div>
             )}
 
-            {/* Quick Actions */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-6">Ações Rápidas</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Quick Actions - Versão Compacta */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+              <h3 className="text-base font-semibold text-gray-900 mb-3">Ações Rápidas</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {quickActions.map((action) => (
                   <button
                     key={action.id}
                     onClick={action.action}
-                    className={`p-6 rounded-lg transition-all duration-200 text-left ${getVariantClasses(action.variant)} hover:shadow-lg hover:transform hover:scale-105`}
+                    className={`p-4 rounded-lg transition-all duration-200 text-left ${getVariantClasses(action.variant)} hover:shadow-md hover:transform hover:scale-105`}
                   >
-                    <div className="text-3xl mb-3">{action.icon}</div>
-                    <h4 className="font-semibold mb-1">{action.title}</h4>
-                    <p className="text-sm opacity-90">{action.description}</p>
+                    <div className="text-2xl mb-2">{action.icon}</div>
+                    <h4 className="font-semibold text-sm mb-1 text-white">{action.title}</h4>
+                    <p className="text-xs text-white font-medium">{action.description}</p>
                   </button>
                 ))}
               </div>
