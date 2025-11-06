@@ -5,3 +5,4 @@
 
 export { CreateOrganizationModal } from './CreateOrganizationModal';
 export { CreateUserModal } from './CreateUserModal';
+export { AIAssistantModal } from './AIAssistantModal';

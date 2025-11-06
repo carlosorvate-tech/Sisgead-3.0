@@ -10,6 +10,7 @@ import type { Institution } from '../../types/premium/institution';
 import type { Organization } from '../../types/premium/organization';
 import { CreateOrganizationModal, CreateUserModal } from './modals';
 import { InstitutionConsolidationView } from './consolidation/InstitutionConsolidationView';
+import { AIAssistantModal } from './modals/AIAssistantModal';
 
 interface DashboardMetrics {
   totalUsers: number;
@@ -44,6 +45,8 @@ export const MasterDashboard: React.FC = () => {
   // Estados dos modais
   const [showCreateOrgModal, setShowCreateOrgModal] = useState(false);
   const [showCreateUserModal, setShowCreateUserModal] = useState(false);
+  const [showAIAssistant, setShowAIAssistant] = useState(false);
+  const [consolidationData, setConsolidationData] = useState<any>(null);
 
   useEffect(() => {
     loadData();
@@ -612,6 +615,29 @@ export const MasterDashboard: React.FC = () => {
           }}
         />
       )}
+      
+      {/* Modal de Assistente de IA */}
+      {showAIAssistant && (
+        <AIAssistantModal
+          onClose={() => setShowAIAssistant(false)}
+          consolidation={consolidationData}
+          organizations={organizations}
+          users={users}
+        />
+      )}
+      
+      {/* Botão Flutuante de Assistente de IA */}
+      <button
+        onClick={() => setShowAIAssistant(true)}
+        className="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-r from-purple-600 to-indigo-700 text-white rounded-full shadow-2xl hover:shadow-purple-500/50 hover:scale-110 transition-all duration-300 flex items-center justify-center group z-40"
+        title="Assistente de IA - Gestão de Pessoas"
+      >
+        <span className="text-3xl">🤖</span>
+        <div className="absolute -top-12 right-0 bg-gray-900 text-white px-4 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          Assistente de IA
+          <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-900"></div>
+        </div>
+      </button>
     </div>
   );
 };
