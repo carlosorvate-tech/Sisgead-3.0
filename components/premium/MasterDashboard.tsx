@@ -8,6 +8,7 @@ import { authService, institutionService, organizationService, userService } fro
 import type { User, UserRole } from '../../types/premium/user';
 import type { Institution } from '../../types/premium/institution';
 import type { Organization } from '../../types/premium/organization';
+import { CreateOrganizationModal, CreateUserModal } from './modals';
 
 interface DashboardMetrics {
   totalUsers: number;
@@ -38,6 +39,10 @@ export const MasterDashboard: React.FC = () => {
   const [metrics, setMetrics] = useState<DashboardMetrics | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'organizations' | 'users' | 'activity'>('overview');
+  
+  // Estados dos modais
+  const [showCreateOrgModal, setShowCreateOrgModal] = useState(false);
+  const [showCreateUserModal, setShowCreateUserModal] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -106,16 +111,7 @@ export const MasterDashboard: React.FC = () => {
       title: 'Nova Organização',
       description: 'Criar uma nova organização na instituição',
       icon: '🏢',
-      action: () => {
-        setActiveTab('organizations');
-        // Scroll para o final da lista de organizações onde estará o botão de adicionar
-        setTimeout(() => {
-          const orgSection = document.getElementById('organizations-section');
-          if (orgSection) {
-            orgSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }, 100);
-      },
+      action: () => setShowCreateOrgModal(true),
       variant: 'primary'
     },
     {
@@ -123,16 +119,7 @@ export const MasterDashboard: React.FC = () => {
       title: 'Novo Usuário',
       description: 'Adicionar um novo usuário ao sistema',
       icon: '👤',
-      action: () => {
-        setActiveTab('users');
-        // Scroll para a seção de usuários
-        setTimeout(() => {
-          const userSection = document.getElementById('users-section');
-          if (userSection) {
-            userSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }, 100);
-      },
+      action: () => setShowCreateUserModal(true),
       variant: 'success'
     },
     {
@@ -546,6 +533,29 @@ export const MasterDashboard: React.FC = () => {
           </p>
         </div>
       </footer>
+      
+      {/* Modais */}
+      {showCreateOrgModal && institution && (
+        <CreateOrganizationModal
+          institutionId={institution.id}
+          onClose={() => setShowCreateOrgModal(false)}
+          onSuccess={() => {
+            setShowCreateOrgModal(false);
+            loadData(); // Recarregar dados após criar organização
+          }}
+        />
+      )}
+      
+      {showCreateUserModal && institution && (
+        <CreateUserModal
+          institutionId={institution.id}
+          onClose={() => setShowCreateUserModal(false)}
+          onSuccess={() => {
+            setShowCreateUserModal(false);
+            loadData(); // Recarregar dados após criar usuário
+          }}
+        />
+      )}
     </div>
   );
 };
