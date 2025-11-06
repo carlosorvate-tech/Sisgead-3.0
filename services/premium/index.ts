@@ -8,3 +8,7 @@ export { authService } from './authService';
 export { institutionService } from './institutionService';
 export { organizationService } from './organizationService';
 export { userService } from './userService';
+export { assessmentService } from './assessmentService';
+export { auditService } from './auditService';
+export { teamMemberService } from './teamMemberService';
+export { kpiService } from './kpiService';
