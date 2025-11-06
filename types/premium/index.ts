@@ -1,6 +1,8 @@
 /**
  * SISGEAD Premium 3.0 - Premium Types Index
  * Exporta todos os tipos do sistema Premium
+ * 
+ * ATUALIZADO (05/11/2025): Adicionado tipos de Assessment, TeamMember, AuditLog e KPI
  */
 
 // Import all types for internal use
@@ -46,6 +48,88 @@ export {
   DEFAULT_PRIVILEGES
 } from './user';
 
+// Assessment types (NOVO - Sprint 1)
+export type {
+  Assessment,
+  AssessmentResults,
+  AssessmentSettings,
+  AssessmentSummary,
+  AssessmentFilters,
+  CreateAssessmentRequest,
+  UpdateAssessmentRequest,
+  ApprovalRequest
+} from './assessment';
+
+export {
+  AssessmentStatus,
+  AssessmentType,
+  ASSESSMENT_RETENTION_DAYS,
+  DEFAULT_ASSESSMENT_SETTINGS
+} from './assessment';
+
+// Team Member types (NOVO - Sprint 1)
+export type {
+  TeamMember,
+  TransferEvent,
+  MemberStats,
+  TeamMemberSummary,
+  TeamMemberFilters,
+  AddMemberRequest,
+  RemoveMemberRequest,
+  TransferMemberRequest,
+  UpdateMemberRequest
+} from './teamMember';
+
+export {
+  MemberStatus,
+  MemberRole,
+  RemovalReason,
+  MEMBER_RETENTION_DAYS,
+  DEFAULT_MEMBER_PERMISSIONS
+} from './teamMember';
+
+// Audit Log types (NOVO - Sprint 1)
+export type {
+  TeamAuditLog,
+  AuditEventDetails,
+  ChangeDetail,
+  AuditLogSummary,
+  AuditLogFilters,
+  CreateAuditLogRequest,
+  AuditReport
+} from './auditLog';
+
+export {
+  AuditEventType,
+  AuditSeverity,
+  KPICategory,
+  createMemberAddedLog,
+  createMemberRemovedLog,
+  createMemberTransferredLog
+} from './auditLog';
+
+// KPI types (NOVO - Sprint 1)
+export type {
+  OrganizationKPIs,
+  KPIFilters,
+  KPICalculationRequest,
+  KPIComparison,
+  KPIDashboard,
+  KPIAlert,
+  KPIRecommendation
+} from './kpi';
+
+export {
+  KPIMetric,
+  KPIPeriod,
+  KPITrend,
+  KPI_THRESHOLDS,
+  DEFAULT_KPI_PERIOD,
+  calculateTurnoverRate,
+  calculateRetentionRate,
+  calculateTransferRate
+} from './kpi';
+
 // Institution types
 export type {
   InstitutionAddress,
@@ -83,8 +167,7 @@ export {
   ORGANIZATION_COLORS,
   ORGANIZATION_ICONS
 } from './organization';
-
-// Audit types
+// Audit types (original - manter para compatibilidade)
 export type {
   AuditContext,
   AuditChange,
@@ -98,7 +181,7 @@ export type {
 
 export {
   AuditActionType,
-  AuditSeverity,
+  AuditSeverity as OriginalAuditSeverity, // Renomear para evitar conflito
   DEFAULT_RETENTION_POLICY,
   AuditActionDescriptions
 } from './audit';

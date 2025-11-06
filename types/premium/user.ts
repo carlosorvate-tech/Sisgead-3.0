@@ -1,6 +1,9 @@
 /**
  * SISGEAD Premium 3.0 - User Types
  * Sistema de tipos para usuários multi-tenant
+ * 
+ * DECISÃO APROVADA (05/11/2025):
+ * - Adicionar campo managerId para aprovação de respostas por gestor imediato
  */
 
 /**
@@ -175,6 +178,9 @@ export interface User {
   
   /** IDs das organizações às quais pertence (pode ser múltiplas) */
   organizationIds: string[];
+  
+  /** DECISÃO APROVADA (05/11/2025): ID do gestor imediato para aprovação de respostas */
+  managerId?: string;
   
   /** Informações de perfil */
   profile: UserProfile;
