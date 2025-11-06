@@ -106,7 +106,16 @@ export const MasterDashboard: React.FC = () => {
       title: 'Nova Organização',
       description: 'Criar uma nova organização na instituição',
       icon: '🏢',
-      action: () => alert('Funcionalidade em desenvolvimento'),
+      action: () => {
+        setActiveTab('organizations');
+        // Scroll para o final da lista de organizações onde estará o botão de adicionar
+        setTimeout(() => {
+          const orgSection = document.getElementById('organizations-section');
+          if (orgSection) {
+            orgSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      },
       variant: 'primary'
     },
     {
@@ -114,7 +123,16 @@ export const MasterDashboard: React.FC = () => {
       title: 'Novo Usuário',
       description: 'Adicionar um novo usuário ao sistema',
       icon: '👤',
-      action: () => alert('Funcionalidade em desenvolvimento'),
+      action: () => {
+        setActiveTab('users');
+        // Scroll para a seção de usuários
+        setTimeout(() => {
+          const userSection = document.getElementById('users-section');
+          if (userSection) {
+            userSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      },
       variant: 'success'
     },
     {
@@ -122,7 +140,16 @@ export const MasterDashboard: React.FC = () => {
       title: 'Auditoria',
       description: 'Visualizar logs de auditoria do sistema',
       icon: '📋',
-      action: () => alert('Funcionalidade em desenvolvimento'),
+      action: () => {
+        setActiveTab('activity');
+        // Scroll para a seção de atividades
+        setTimeout(() => {
+          const activitySection = document.getElementById('activity-section');
+          if (activitySection) {
+            activitySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      },
       variant: 'secondary'
     },
     {
@@ -130,7 +157,17 @@ export const MasterDashboard: React.FC = () => {
       title: 'Relatório Institucional',
       description: 'Gerar relatório consolidado da instituição',
       icon: '📊',
-      action: () => alert('Funcionalidade em desenvolvimento'),
+      action: () => {
+        // Abrir a aba Visão Geral que já tem KPIs e estatísticas
+        setActiveTab('overview');
+        setTimeout(() => {
+          alert(`📊 Relatório Institucional - ${institution?.name}\n\n` +
+                `Total de Organizações: ${organizations.length}\n` +
+                `Total de Usuários: ${users.length}\n` +
+                `Usuários Ativos: ${users.filter(u => u.status === 'active').length}\n\n` +
+                `Para exportar dados completos, use os botões de exportação em cada aba.`);
+        }, 100);
+      },
       variant: 'warning'
     }
   ];
@@ -378,7 +415,7 @@ export const MasterDashboard: React.FC = () => {
         )}
 
         {activeTab === 'organizations' && (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+          <div id="organizations-section" className="bg-white rounded-xl shadow-sm border border-gray-100">
             <div className="px-6 py-4 border-b border-gray-200">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold text-gray-900">Organizações da Instituição</h2>
@@ -429,7 +466,7 @@ export const MasterDashboard: React.FC = () => {
         )}
 
         {activeTab === 'users' && (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+          <div id="users-section" className="bg-white rounded-xl shadow-sm border border-gray-100">
             <div className="px-6 py-4 border-b border-gray-200">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold text-gray-900">Usuários da Instituição</h2>
@@ -485,7 +522,7 @@ export const MasterDashboard: React.FC = () => {
         )}
 
         {activeTab === 'activity' && (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+          <div id="activity-section" className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-6">Atividade Recente</h2>
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📈</div>
