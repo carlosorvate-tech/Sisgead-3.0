@@ -2048,244 +2048,244 @@ Total de Organizações: ${o.length}
 Total de Usuários: ${u.length}
 Usuários Ativos: ${u.filter(z=>z.status==="active").length}
 
-Para exportar dados completos, use os botões de exportação em cada aba.`)},100)},variant:"warning"}];if(h)return c.jsx("div",{className:"min-h-screen bg-gray-50 flex items-center justify-center",children:c.jsxs("div",{className:"text-center",children:[c.jsx("div",{className:"animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto"}),c.jsx("p",{className:"mt-6 text-lg text-gray-600",children:"Carregando Dashboard Master..."}),c.jsx("p",{className:"mt-2 text-sm text-gray-500",children:"Preparando visão institucional"})]})});if(!e||!r)return c.jsx("div",{className:"min-h-screen bg-gray-50 flex items-center justify-center",children:c.jsxs("div",{className:"text-center",children:[c.jsx("div",{className:"text-6xl mb-4",children:"⚠️"}),c.jsx("h2",{className:"text-2xl font-bold text-gray-900 mb-2",children:"Sessão Inválida"}),c.jsx("p",{className:"text-gray-600 mb-6",children:"Não foi possível carregar os dados da sessão."}),c.jsx("button",{onClick:ue,className:"px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors",children:"Fazer Login Novamente"})]})});const _e=z=>{switch(z){case"primary":return"bg-blue-600 hover:bg-blue-700 text-white";case"success":return"bg-green-600 hover:bg-green-700 text-white";case"warning":return"bg-yellow-600 hover:bg-yellow-700 text-white";case"secondary":return"bg-gray-600 hover:bg-gray-700 text-white";default:return"bg-blue-600 hover:bg-blue-700 text-white"}};return c.jsxs("div",{className:"min-h-screen bg-gray-50",children:[c.jsx("header",{className:"bg-gradient-to-r from-blue-900 via-blue-800 to-purple-900 shadow-lg",children:c.jsx("div",{className:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3",children:c.jsxs("div",{className:"flex items-center justify-between",children:[c.jsxs("div",{className:"flex items-center space-x-3",children:[c.jsx("div",{className:"w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center",children:c.jsx("span",{className:"text-xl",children:"🏢"})}),c.jsxs("div",{children:[c.jsx("h1",{className:"text-xl font-bold text-white",children:r.name}),c.jsx("p",{className:"text-blue-100 text-xs mt-0.5",children:"SISGEAD Premium 3.0 - Dashboard Master"})]})]}),c.jsxs("div",{className:"flex items-center gap-4",children:[c.jsxs("div",{className:"text-right",children:[c.jsx("p",{className:"text-sm font-semibold text-white",children:e.profile.name}),c.jsxs("div",{className:"flex items-center justify-end mt-0.5",children:[c.jsx("span",{className:"text-lg mr-1",children:"👑"}),c.jsx("span",{className:"text-xs bg-yellow-400 text-yellow-900 px-2 py-0.5 rounded-full font-medium",children:"Master"})]})]}),c.jsxs("div",{className:"flex gap-2",children:[c.jsx("button",{onClick:ve,className:"px-3 py-1.5 bg-white bg-opacity-20 text-white rounded-lg text-xs font-medium hover:bg-opacity-30 transition-all duration-200",children:"← Modo Standard"}),c.jsx("button",{onClick:ue,className:"px-3 py-1.5 bg-red-600 text-white rounded-lg text-xs font-medium hover:bg-red-700 transition-colors",children:"🚪 Sair"})]})]})]})})}),c.jsx("div",{className:"bg-white shadow-sm border-b border-gray-200",children:c.jsx("div",{className:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",children:c.jsx("nav",{className:"flex space-x-8",children:[{id:"overview",label:"Visão Geral",icon:"📊"},{id:"organizations",label:"Organizações",icon:"🏢"},{id:"users",label:"Usuários",icon:"👥"},{id:"consolidation",label:"Consolidação",icon:"📋"},{id:"activity",label:"Atividade",icon:"📈"}].map(z=>c.jsxs("button",{onClick:()=>S(z.id),className:`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${y===z.id?"border-blue-500 text-blue-600":"border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"}`,children:[c.jsx("span",{children:z.icon}),c.jsx("span",{children:z.label})]},z.id))})})}),c.jsxs("main",{className:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4",children:[c.jsx("div",{className:"bg-gradient-to-r from-green-50 to-green-100 border border-green-200 rounded-lg p-3 mb-4",children:c.jsxs("div",{className:"flex items-start",children:[c.jsx("div",{className:"flex-shrink-0",children:c.jsx("div",{className:"w-8 h-8 bg-green-500 rounded-full flex items-center justify-center",children:c.jsx("svg",{className:"w-5 h-5 text-white",fill:"currentColor",viewBox:"0 0 20 20",children:c.jsx("path",{fillRule:"evenodd",d:"M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z",clipRule:"evenodd"})})})}),c.jsxs("div",{className:"ml-3 flex-1",children:[c.jsx("h3",{className:"text-sm font-semibold text-green-900",children:"🎉 Sistema Premium Configurado com Sucesso!"}),c.jsxs("p",{className:"text-xs text-green-800 mt-0.5",children:["Sua instituição ",c.jsx("strong",{children:r.name})," está operacional. Você tem acesso completo a todas as funcionalidades multi-tenant."]})]})]})}),y==="overview"&&c.jsxs("div",{className:"space-y-8",children:[c.jsx("div",{className:"grid grid-cols-2 md:grid-cols-4 gap-3",children:m&&[{title:"Total de Usuários",value:m.totalUsers,subtitle:`${m.activeUsers} ativos`,icon:"👥",color:"blue",trend:"+12%"},{title:"Organizações",value:m.totalOrganizations,subtitle:`${m.activeOrganizations} ativas`,icon:"🏢",color:"green",trend:"+5%"},{title:"Administradores",value:m.masterUsers+m.orgAdmins,subtitle:`${m.masterUsers} Masters`,icon:"👑",color:"purple",trend:"0%"},{title:"Atividade (7d)",value:m.recentActivity,subtitle:"Usuários ativos",icon:"📈",color:"yellow",trend:"+8%"}].map((z,de)=>c.jsxs("div",{className:"bg-white rounded-xl shadow-sm border border-gray-100 p-4",children:[c.jsxs("div",{className:"flex items-center justify-between mb-2",children:[c.jsx("div",{className:`p-2 rounded-lg bg-${z.color}-100`,children:c.jsx("span",{className:"text-xl",children:z.icon})}),c.jsx("span",{className:`text-xs font-medium px-2 py-0.5 rounded-full ${z.trend.startsWith("+")?"bg-green-100 text-green-800":"bg-gray-100 text-gray-600"}`,children:z.trend})]}),c.jsxs("div",{className:"mt-2",children:[c.jsx("p",{className:"text-xs font-medium text-gray-600",children:z.title}),c.jsx("p",{className:"text-2xl font-bold text-gray-900 mt-1",children:z.value}),c.jsx("p",{className:"text-xs text-gray-500 mt-0.5",children:z.subtitle})]})]},de))}),m&&c.jsxs("div",{className:"bg-white rounded-xl shadow-sm border border-gray-100 p-6",children:[c.jsx("h3",{className:"text-lg font-semibold text-gray-900 mb-6",children:"Distribuição de Papéis"}),c.jsx("div",{className:"grid grid-cols-2 md:grid-cols-4 gap-4",children:[{role:"Master",count:m.masterUsers,icon:"👑",color:"bg-purple-500"},{role:"Admin Org",count:m.orgAdmins,icon:"⚙️",color:"bg-blue-500"},{role:"Usuário",count:m.regularUsers,icon:"👤",color:"bg-green-500"},{role:"Visualizador",count:m.viewers,icon:"👁️",color:"bg-gray-500"}].map((z,de)=>c.jsxs("div",{className:"text-center p-4 bg-gray-50 rounded-lg",children:[c.jsx("div",{className:`w-16 h-16 ${z.color} rounded-full flex items-center justify-center mx-auto mb-3`,children:c.jsx("span",{className:"text-2xl",children:z.icon})}),c.jsx("p",{className:"font-semibold text-gray-900",children:z.count}),c.jsx("p",{className:"text-sm text-gray-600",children:z.role})]},de))})]}),c.jsxs("div",{className:"bg-white rounded-xl shadow-sm border border-gray-100 p-4",children:[c.jsx("h3",{className:"text-base font-semibold text-gray-900 mb-3",children:"Ações Rápidas"}),c.jsx("div",{className:"grid grid-cols-2 md:grid-cols-4 gap-3",children:be.map(z=>c.jsxs("button",{onClick:z.action,className:`p-4 rounded-lg transition-all duration-200 text-left ${_e(z.variant)} hover:shadow-md hover:transform hover:scale-105`,children:[c.jsx("div",{className:"text-2xl mb-2",children:z.icon}),c.jsx("h4",{className:"font-semibold text-sm mb-1 text-white",children:z.title}),c.jsx("p",{className:"text-xs text-white font-medium",children:z.description})]},z.id))})]})]}),y==="organizations"&&c.jsxs("div",{id:"organizations-section",className:"bg-white rounded-xl shadow-sm border border-gray-100",children:[c.jsx("div",{className:"px-6 py-4 border-b border-gray-200",children:c.jsxs("div",{className:"flex items-center justify-between",children:[c.jsx("h2",{className:"text-lg font-semibold text-gray-900",children:"Organizações da Instituição"}),c.jsx("button",{onClick:()=>C(!0),className:"px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors",children:"+ Nova Organização"})]})}),c.jsx("div",{className:"divide-y divide-gray-200",children:o.length===0?c.jsxs("div",{className:"px-6 py-12 text-center",children:[c.jsx("div",{className:"text-6xl mb-4",children:"🏢"}),c.jsx("h3",{className:"text-lg font-medium text-gray-900 mb-2",children:"Nenhuma Organização"}),c.jsx("p",{className:"text-gray-600",children:"Crie sua primeira organização para começar."})]}):o.map(z=>{var de;return c.jsx("div",{className:"px-6 py-4 hover:bg-gray-50 transition-colors",children:c.jsxs("div",{className:"flex items-start justify-between",children:[c.jsxs("div",{className:"flex items-start space-x-4 flex-1",children:[c.jsx("div",{className:"w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0",style:{backgroundColor:z.color+"20"},children:c.jsx("span",{className:"text-xl",children:z.icon||"🏢"})}),c.jsxs("div",{className:"flex-1",children:[c.jsx("h3",{className:"font-semibold text-gray-900",children:z.name}),c.jsx("p",{className:"text-sm text-gray-500 mb-2",children:z.description||"Sem descrição"}),c.jsxs("div",{className:"flex flex-wrap gap-4 text-xs text-gray-600",children:[c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"ID:"}),c.jsx("span",{className:"font-mono",children:z.id})]}),c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"Membros:"}),c.jsx("span",{children:((de=z.stats)==null?void 0:de.totalMembers)||0})]}),c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"Criada em:"}),c.jsx("span",{children:new Date(z.createdAt).toLocaleDateString("pt-BR")})]}),z.parentId&&c.jsx("div",{className:"flex items-center",children:c.jsx("span",{className:"font-medium mr-1",children:"Sub-organização"})})]})]})]}),c.jsxs("div",{className:"flex items-center space-x-3",children:[c.jsxs("button",{onClick:()=>{I(z),_(!0)},className:"px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-100 transition-colors flex items-center",children:[c.jsx("svg",{className:"w-4 h-4 mr-1",fill:"none",stroke:"currentColor",viewBox:"0 0 24 24",children:c.jsx("path",{strokeLinecap:"round",strokeLinejoin:"round",strokeWidth:2,d:"M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"})}),"Editar"]}),c.jsx("span",{className:`px-3 py-1 rounded-full text-xs font-medium ${z.status==="active"?"bg-green-100 text-green-800":"bg-gray-100 text-gray-800"}`,children:z.status==="active"?"Ativa":z.status})]})]})},z.id)})})]}),y==="users"&&c.jsxs("div",{id:"users-section",className:"bg-white rounded-xl shadow-sm border border-gray-100",children:[c.jsx("div",{className:"px-6 py-4 border-b border-gray-200",children:c.jsxs("div",{className:"flex items-center justify-between",children:[c.jsx("h2",{className:"text-lg font-semibold text-gray-900",children:"Usuários da Instituição"}),c.jsx("button",{onClick:()=>P(!0),className:"px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors",children:"+ Novo Usuário"})]})}),c.jsx("div",{className:"divide-y divide-gray-200",children:u.length===0?c.jsxs("div",{className:"px-6 py-12 text-center",children:[c.jsx("div",{className:"text-6xl mb-4",children:"👥"}),c.jsx("h3",{className:"text-lg font-medium text-gray-900 mb-2",children:"Nenhum Usuário"}),c.jsx("p",{className:"text-gray-600",children:"Convide usuários para sua instituição."})]}):u.map(z=>c.jsx("div",{className:"px-6 py-4 hover:bg-gray-50 transition-colors",children:c.jsxs("div",{className:"flex items-start justify-between",children:[c.jsxs("div",{className:"flex items-start space-x-4 flex-1",children:[c.jsx("div",{className:"w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0",children:c.jsx("span",{className:"text-lg font-bold text-white",children:z.profile.name.charAt(0).toUpperCase()})}),c.jsxs("div",{className:"flex-1",children:[c.jsx("h3",{className:"font-semibold text-gray-900",children:z.profile.name}),c.jsx("p",{className:"text-sm text-gray-500 mb-2",children:z.profile.email}),c.jsxs("div",{className:"flex flex-wrap gap-4 text-xs text-gray-600",children:[c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"ID:"}),c.jsx("span",{className:"font-mono",children:z.id})]}),z.profile.department&&c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"Depto:"}),c.jsx("span",{children:z.profile.department})]}),z.profile.phone&&c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"Tel:"}),c.jsx("span",{children:z.profile.phone})]}),c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"Organizações:"}),c.jsx("span",{children:z.organizationIds.length})]}),z.createdAt&&c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"Criado em:"}),c.jsx("span",{children:new Date(z.createdAt).toLocaleDateString("pt-BR")})]})]})]})]}),c.jsxs("div",{className:"flex items-center space-x-3",children:[c.jsxs("button",{onClick:()=>{Q(z),$(!0)},className:"px-3 py-1.5 bg-green-50 text-green-700 rounded-lg text-sm font-medium hover:bg-green-100 transition-colors flex items-center",children:[c.jsx("svg",{className:"w-4 h-4 mr-1",fill:"none",stroke:"currentColor",viewBox:"0 0 24 24",children:c.jsx("path",{strokeLinecap:"round",strokeLinejoin:"round",strokeWidth:2,d:"M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"})}),"Editar"]}),c.jsx("span",{className:`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${z.role==="master"?"bg-purple-100 text-purple-800":z.role==="org_admin"?"bg-blue-100 text-blue-800":z.role==="member"?"bg-green-100 text-green-800":"bg-gray-100 text-gray-800"}`,children:z.role==="master"?"👑 Master":z.role==="org_admin"?"👔 Admin":z.role==="member"?"👤 Membro":"👁️ Viewer"}),c.jsx("span",{className:`w-2 h-2 rounded-full ${z.isActive?"bg-green-400":"bg-gray-400"}`,title:z.isActive?"Ativo":"Inativo"})]})]})},z.id))})]}),y==="consolidation"&&c.jsx("div",{id:"consolidation-section",children:c.jsx(PX,{})}),y==="activity"&&c.jsxs("div",{id:"activity-section",className:"bg-white rounded-xl shadow-sm border border-gray-100 p-6",children:[c.jsx("h2",{className:"text-lg font-semibold text-gray-900 mb-6",children:"Atividade Recente"}),c.jsxs("div",{className:"text-center py-12",children:[c.jsx("div",{className:"text-6xl mb-4",children:"📈"}),c.jsx("h3",{className:"text-lg font-medium text-gray-900 mb-2",children:"Sistema de Auditoria"}),c.jsx("p",{className:"text-gray-600 mb-6",children:"O sistema de auditoria será implementado na próxima fase."}),c.jsx("button",{className:"px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors",children:"Configurar Auditoria"})]})]})]}),c.jsx("footer",{className:"bg-gray-50 border-t border-gray-200 py-4",children:c.jsx("div",{className:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",children:c.jsxs("p",{className:"text-center text-sm text-gray-500",children:["SISGEAD Premium 3.0 • Desenvolvido por ",c.jsx("strong",{children:"INFINITUS Sistemas Inteligentes"})," • CNPJ: 09.371.580/0001-06"]})})}),N&&r&&c.jsx(EX,{institutionId:r.id,onClose:()=>C(!1),onSuccess:()=>{C(!1),Z()}}),O&&r&&c.jsx(NX,{institutionId:r.id,onClose:()=>P(!1),onSuccess:()=>{P(!1),Z()}}),D&&te&&c.jsx(OX,{organization:te,onClose:()=>{_(!1),I(null)},onSuccess:z=>{_(!1),I(null),Z()}}),k&&B&&c.jsx(CX,{user:B,onClose:()=>{$(!1),Q(null)},onSuccess:z=>{$(!1),Q(null),Z()}}),oe&&c.jsx(TX,{onClose:()=>Y(!1),consolidation:ie,organizations:o,users:u}),c.jsx(DX,{})]})},_X=({onLogin:e,onCancel:t})=>{const[r,a]=b.useState({cpf:"",password:""}),[o,s]=b.useState({}),[u,f]=b.useState(!1),m=g=>{const y=g.replace(/\D/g,"");return y.length<=11?y.replace(/(\d{3})(\d)/,"$1.$2").replace(/(\d{3})(\d)/,"$1.$2").replace(/(\d{3})(\d{1,2})$/,"$1-$2"):g},p=g=>{const y=m(g.target.value);a({...r,cpf:y}),o.cpf&&s({...o,cpf:""})},h=async g=>{g.preventDefault();const y={};if(r.cpf.trim()||(y.cpf="CPF é obrigatório"),r.password||(y.password="Senha é obrigatória"),Object.keys(y).length>0){s(y);return}f(!0),s({});try{const S=await Ze.login({cpf:r.cpf.replace(/\D/g,""),password:r.password});if(!S.success||!S.session)throw new Error(S.error||"Erro ao fazer login");e(S.session)}catch(S){s({submit:S.message||"CPF ou senha incorretos"})}finally{f(!1)}};return c.jsxs("div",{className:"bg-white rounded-lg shadow-xl p-8 max-w-md w-full",children:[c.jsxs("div",{className:"text-center mb-8",children:[c.jsx("h2",{className:"text-3xl font-bold text-gray-900",children:"Acesso Premium"}),c.jsx("p",{className:"text-gray-600 mt-2",children:"Entre com suas credenciais de usuário Master"})]}),c.jsxs("form",{onSubmit:h,className:"space-y-6",children:[c.jsxs("div",{children:[c.jsx("label",{className:"block text-sm font-medium text-gray-700 mb-2",children:"CPF *"}),c.jsx("input",{type:"text",value:r.cpf,onChange:p,className:`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${o.cpf?"border-red-500":"border-gray-300"}`,placeholder:"000.000.000-00",maxLength:14,autoFocus:!0}),o.cpf&&c.jsx("p",{className:"mt-1 text-sm text-red-600",children:o.cpf})]}),c.jsxs("div",{children:[c.jsx("label",{className:"block text-sm font-medium text-gray-700 mb-2",children:"Senha *"}),c.jsx("input",{type:"password",value:r.password,onChange:g=>a({...r,password:g.target.value}),className:`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${o.password?"border-red-500":"border-gray-300"}`,placeholder:"Digite sua senha"}),o.password&&c.jsx("p",{className:"mt-1 text-sm text-red-600",children:o.password})]}),o.submit&&c.jsx("div",{className:"bg-red-50 border border-red-200 rounded-lg p-4",children:c.jsx("p",{className:"text-sm text-red-800",children:o.submit})}),c.jsxs("div",{className:"flex items-center gap-4",children:[t&&c.jsx("button",{type:"button",onClick:t,className:"flex-1 px-6 py-3 text-gray-700 hover:text-gray-900 font-medium border border-gray-300 rounded-lg hover:bg-gray-50",children:"Voltar"}),c.jsx("button",{type:"submit",disabled:u,className:"flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed",children:u?"Entrando...":"Entrar"})]})]})]})};class MX{constructor(){this.documents=new Map,this.index=new Map,this.initialized=!1,this.WIKI_DOCS={"guia-administrador":{id:"guia-administrador",title:"Guia do Administrador SISGEAD 3.0",category:"guias-admin",tags:["administrador","gestão","master","organizações"],version:"3.0.0",lastUpdate:"2025-11-06",author:"Sistema",aiContext:!0,difficulty:"intermediário",path:"/wiki/02-guias-administrador/guia-administrador.md",content:`
+Para exportar dados completos, use os botões de exportação em cada aba.`)},100)},variant:"warning"}];if(h)return c.jsx("div",{className:"min-h-screen bg-gray-50 flex items-center justify-center",children:c.jsxs("div",{className:"text-center",children:[c.jsx("div",{className:"animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto"}),c.jsx("p",{className:"mt-6 text-lg text-gray-600",children:"Carregando Dashboard Master..."}),c.jsx("p",{className:"mt-2 text-sm text-gray-500",children:"Preparando visão institucional"})]})});if(!e||!r)return c.jsx("div",{className:"min-h-screen bg-gray-50 flex items-center justify-center",children:c.jsxs("div",{className:"text-center",children:[c.jsx("div",{className:"text-6xl mb-4",children:"⚠️"}),c.jsx("h2",{className:"text-2xl font-bold text-gray-900 mb-2",children:"Sessão Inválida"}),c.jsx("p",{className:"text-gray-600 mb-6",children:"Não foi possível carregar os dados da sessão."}),c.jsx("button",{onClick:ue,className:"px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors",children:"Fazer Login Novamente"})]})});const _e=z=>{switch(z){case"primary":return"bg-blue-600 hover:bg-blue-700 text-white";case"success":return"bg-green-600 hover:bg-green-700 text-white";case"warning":return"bg-yellow-600 hover:bg-yellow-700 text-white";case"secondary":return"bg-gray-600 hover:bg-gray-700 text-white";default:return"bg-blue-600 hover:bg-blue-700 text-white"}};return c.jsxs("div",{className:"min-h-screen bg-gray-50",children:[c.jsx("header",{className:"bg-gradient-to-r from-blue-900 via-blue-800 to-purple-900 shadow-lg",children:c.jsx("div",{className:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3",children:c.jsxs("div",{className:"flex items-center justify-between",children:[c.jsxs("div",{className:"flex items-center space-x-3",children:[c.jsx("div",{className:"w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center",children:c.jsx("span",{className:"text-xl",children:"🏢"})}),c.jsxs("div",{children:[c.jsx("h1",{className:"text-xl font-bold text-white",children:r.name}),c.jsx("p",{className:"text-blue-100 text-xs mt-0.5",children:"SISGEAD Premium 3.0 - Dashboard Master"})]})]}),c.jsxs("div",{className:"flex items-center gap-4",children:[c.jsxs("div",{className:"text-right",children:[c.jsx("p",{className:"text-sm font-semibold text-white",children:e.profile.name}),c.jsxs("div",{className:"flex items-center justify-end mt-0.5",children:[c.jsx("span",{className:"text-lg mr-1",children:"👑"}),c.jsx("span",{className:"text-xs bg-yellow-400 text-yellow-900 px-2 py-0.5 rounded-full font-medium",children:"Master"})]})]}),c.jsxs("div",{className:"flex gap-2",children:[c.jsx("button",{onClick:ve,className:"px-3 py-1.5 bg-white bg-opacity-20 text-white rounded-lg text-xs font-medium hover:bg-opacity-30 transition-all duration-200",children:"← Modo Standard"}),c.jsx("button",{onClick:ue,className:"px-3 py-1.5 bg-red-600 text-white rounded-lg text-xs font-medium hover:bg-red-700 transition-colors",children:"🚪 Sair"})]})]})]})})}),c.jsx("div",{className:"bg-white shadow-sm border-b border-gray-200",children:c.jsx("div",{className:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",children:c.jsx("nav",{className:"flex space-x-8",children:[{id:"overview",label:"Visão Geral",icon:"📊"},{id:"organizations",label:"Organizações",icon:"🏢"},{id:"users",label:"Usuários",icon:"👥"},{id:"consolidation",label:"Consolidação",icon:"📋"},{id:"activity",label:"Atividade",icon:"📈"}].map(z=>c.jsxs("button",{onClick:()=>S(z.id),className:`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${y===z.id?"border-blue-500 text-blue-600":"border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"}`,children:[c.jsx("span",{children:z.icon}),c.jsx("span",{children:z.label})]},z.id))})})}),c.jsxs("main",{className:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4",children:[c.jsx("div",{className:"bg-gradient-to-r from-green-50 to-green-100 border border-green-200 rounded-lg p-3 mb-4",children:c.jsxs("div",{className:"flex items-start",children:[c.jsx("div",{className:"flex-shrink-0",children:c.jsx("div",{className:"w-8 h-8 bg-green-500 rounded-full flex items-center justify-center",children:c.jsx("svg",{className:"w-5 h-5 text-white",fill:"currentColor",viewBox:"0 0 20 20",children:c.jsx("path",{fillRule:"evenodd",d:"M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z",clipRule:"evenodd"})})})}),c.jsxs("div",{className:"ml-3 flex-1",children:[c.jsx("h3",{className:"text-sm font-semibold text-green-900",children:"🎉 Sistema Premium Configurado com Sucesso!"}),c.jsxs("p",{className:"text-xs text-green-800 mt-0.5",children:["Sua instituição ",c.jsx("strong",{children:r.name})," está operacional. Você tem acesso completo a todas as funcionalidades multi-tenant."]})]})]})}),y==="overview"&&c.jsxs("div",{className:"space-y-8",children:[c.jsx("div",{className:"grid grid-cols-2 md:grid-cols-4 gap-3",children:m&&[{title:"Total de Usuários",value:m.totalUsers,subtitle:`${m.activeUsers} ativos`,icon:"👥",color:"blue",trend:"+12%"},{title:"Organizações",value:m.totalOrganizations,subtitle:`${m.activeOrganizations} ativas`,icon:"🏢",color:"green",trend:"+5%"},{title:"Administradores",value:m.masterUsers+m.orgAdmins,subtitle:`${m.masterUsers} Masters`,icon:"👑",color:"purple",trend:"0%"},{title:"Atividade (7d)",value:m.recentActivity,subtitle:"Usuários ativos",icon:"📈",color:"yellow",trend:"+8%"}].map((z,de)=>c.jsxs("div",{className:"bg-white rounded-xl shadow-sm border border-gray-100 p-4",children:[c.jsxs("div",{className:"flex items-center justify-between mb-2",children:[c.jsx("div",{className:`p-2 rounded-lg bg-${z.color}-100`,children:c.jsx("span",{className:"text-xl",children:z.icon})}),c.jsx("span",{className:`text-xs font-medium px-2 py-0.5 rounded-full ${z.trend.startsWith("+")?"bg-green-100 text-green-800":"bg-gray-100 text-gray-600"}`,children:z.trend})]}),c.jsxs("div",{className:"mt-2",children:[c.jsx("p",{className:"text-xs font-medium text-gray-600",children:z.title}),c.jsx("p",{className:"text-2xl font-bold text-gray-900 mt-1",children:z.value}),c.jsx("p",{className:"text-xs text-gray-500 mt-0.5",children:z.subtitle})]})]},de))}),m&&c.jsxs("div",{className:"bg-white rounded-xl shadow-sm border border-gray-100 p-6",children:[c.jsx("h3",{className:"text-lg font-semibold text-gray-900 mb-6",children:"Distribuição de Papéis"}),c.jsx("div",{className:"grid grid-cols-2 md:grid-cols-4 gap-4",children:[{role:"Master",count:m.masterUsers,icon:"👑",color:"bg-purple-500"},{role:"Admin Org",count:m.orgAdmins,icon:"⚙️",color:"bg-blue-500"},{role:"Usuário",count:m.regularUsers,icon:"👤",color:"bg-green-500"},{role:"Visualizador",count:m.viewers,icon:"👁️",color:"bg-gray-500"}].map((z,de)=>c.jsxs("div",{className:"text-center p-4 bg-gray-50 rounded-lg",children:[c.jsx("div",{className:`w-16 h-16 ${z.color} rounded-full flex items-center justify-center mx-auto mb-3`,children:c.jsx("span",{className:"text-2xl",children:z.icon})}),c.jsx("p",{className:"font-semibold text-gray-900",children:z.count}),c.jsx("p",{className:"text-sm text-gray-600",children:z.role})]},de))})]}),c.jsxs("div",{className:"bg-white rounded-xl shadow-sm border border-gray-100 p-4",children:[c.jsx("h3",{className:"text-base font-semibold text-gray-900 mb-3",children:"Ações Rápidas"}),c.jsx("div",{className:"grid grid-cols-2 md:grid-cols-4 gap-3",children:be.map(z=>c.jsxs("button",{onClick:z.action,className:`p-4 rounded-lg transition-all duration-200 text-left ${_e(z.variant)} hover:shadow-md hover:transform hover:scale-105`,children:[c.jsx("div",{className:"text-2xl mb-2",children:z.icon}),c.jsx("h4",{className:"font-semibold text-sm mb-1 text-white",children:z.title}),c.jsx("p",{className:"text-xs text-white font-medium",children:z.description})]},z.id))})]})]}),y==="organizations"&&c.jsxs("div",{id:"organizations-section",className:"bg-white rounded-xl shadow-sm border border-gray-100",children:[c.jsx("div",{className:"px-6 py-4 border-b border-gray-200",children:c.jsxs("div",{className:"flex items-center justify-between",children:[c.jsx("h2",{className:"text-lg font-semibold text-gray-900",children:"Organizações da Instituição"}),c.jsx("button",{onClick:()=>C(!0),className:"px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors",children:"+ Nova Organização"})]})}),c.jsx("div",{className:"divide-y divide-gray-200",children:o.length===0?c.jsxs("div",{className:"px-6 py-12 text-center",children:[c.jsx("div",{className:"text-6xl mb-4",children:"🏢"}),c.jsx("h3",{className:"text-lg font-medium text-gray-900 mb-2",children:"Nenhuma Organização"}),c.jsx("p",{className:"text-gray-600",children:"Crie sua primeira organização para começar."})]}):o.map(z=>{var de;return c.jsx("div",{className:"px-6 py-4 hover:bg-gray-50 transition-colors",children:c.jsxs("div",{className:"flex items-start justify-between",children:[c.jsxs("div",{className:"flex items-start space-x-4 flex-1",children:[c.jsx("div",{className:"w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0",style:{backgroundColor:z.color+"20"},children:c.jsx("span",{className:"text-xl",children:z.icon||"🏢"})}),c.jsxs("div",{className:"flex-1",children:[c.jsx("h3",{className:"font-semibold text-gray-900",children:z.name}),c.jsx("p",{className:"text-sm text-gray-500 mb-2",children:z.description||"Sem descrição"}),c.jsxs("div",{className:"flex flex-wrap gap-4 text-xs text-gray-600",children:[c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"ID:"}),c.jsx("span",{className:"font-mono",children:z.id})]}),c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"Membros:"}),c.jsx("span",{children:((de=z.stats)==null?void 0:de.totalMembers)||0})]}),c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"Criada em:"}),c.jsx("span",{children:new Date(z.createdAt).toLocaleDateString("pt-BR")})]}),z.parentId&&c.jsx("div",{className:"flex items-center",children:c.jsx("span",{className:"font-medium mr-1",children:"Sub-organização"})})]})]})]}),c.jsxs("div",{className:"flex items-center space-x-3",children:[c.jsxs("button",{onClick:()=>{I(z),_(!0)},className:"px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-100 transition-colors flex items-center",children:[c.jsx("svg",{className:"w-4 h-4 mr-1",fill:"none",stroke:"currentColor",viewBox:"0 0 24 24",children:c.jsx("path",{strokeLinecap:"round",strokeLinejoin:"round",strokeWidth:2,d:"M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"})}),"Editar"]}),c.jsx("span",{className:`px-3 py-1 rounded-full text-xs font-medium ${z.status==="active"?"bg-green-100 text-green-800":"bg-gray-100 text-gray-800"}`,children:z.status==="active"?"Ativa":z.status})]})]})},z.id)})})]}),y==="users"&&c.jsxs("div",{id:"users-section",className:"bg-white rounded-xl shadow-sm border border-gray-100",children:[c.jsx("div",{className:"px-6 py-4 border-b border-gray-200",children:c.jsxs("div",{className:"flex items-center justify-between",children:[c.jsx("h2",{className:"text-lg font-semibold text-gray-900",children:"Usuários da Instituição"}),c.jsx("button",{onClick:()=>P(!0),className:"px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors",children:"+ Novo Usuário"})]})}),c.jsx("div",{className:"divide-y divide-gray-200",children:u.length===0?c.jsxs("div",{className:"px-6 py-12 text-center",children:[c.jsx("div",{className:"text-6xl mb-4",children:"👥"}),c.jsx("h3",{className:"text-lg font-medium text-gray-900 mb-2",children:"Nenhum Usuário"}),c.jsx("p",{className:"text-gray-600",children:"Convide usuários para sua instituição."})]}):u.map(z=>c.jsx("div",{className:"px-6 py-4 hover:bg-gray-50 transition-colors",children:c.jsxs("div",{className:"flex items-start justify-between",children:[c.jsxs("div",{className:"flex items-start space-x-4 flex-1",children:[c.jsx("div",{className:"w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0",children:c.jsx("span",{className:"text-lg font-bold text-white",children:z.profile.name.charAt(0).toUpperCase()})}),c.jsxs("div",{className:"flex-1",children:[c.jsx("h3",{className:"font-semibold text-gray-900",children:z.profile.name}),c.jsx("p",{className:"text-sm text-gray-500 mb-2",children:z.profile.email}),c.jsxs("div",{className:"flex flex-wrap gap-4 text-xs text-gray-600",children:[c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"ID:"}),c.jsx("span",{className:"font-mono",children:z.id})]}),z.profile.department&&c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"Depto:"}),c.jsx("span",{children:z.profile.department})]}),z.profile.phone&&c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"Tel:"}),c.jsx("span",{children:z.profile.phone})]}),c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"Organizações:"}),c.jsx("span",{children:z.organizationIds.length})]}),z.createdAt&&c.jsxs("div",{className:"flex items-center",children:[c.jsx("span",{className:"font-medium mr-1",children:"Criado em:"}),c.jsx("span",{children:new Date(z.createdAt).toLocaleDateString("pt-BR")})]})]})]})]}),c.jsxs("div",{className:"flex items-center space-x-3",children:[c.jsxs("button",{onClick:()=>{Q(z),$(!0)},className:"px-3 py-1.5 bg-green-50 text-green-700 rounded-lg text-sm font-medium hover:bg-green-100 transition-colors flex items-center",children:[c.jsx("svg",{className:"w-4 h-4 mr-1",fill:"none",stroke:"currentColor",viewBox:"0 0 24 24",children:c.jsx("path",{strokeLinecap:"round",strokeLinejoin:"round",strokeWidth:2,d:"M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"})}),"Editar"]}),c.jsx("span",{className:`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${z.role==="master"?"bg-purple-100 text-purple-800":z.role==="org_admin"?"bg-blue-100 text-blue-800":z.role==="member"?"bg-green-100 text-green-800":"bg-gray-100 text-gray-800"}`,children:z.role==="master"?"👑 Master":z.role==="org_admin"?"👔 Admin":z.role==="member"?"👤 Membro":"👁️ Viewer"}),c.jsx("span",{className:`w-2 h-2 rounded-full ${z.isActive?"bg-green-400":"bg-gray-400"}`,title:z.isActive?"Ativo":"Inativo"})]})]})},z.id))})]}),y==="consolidation"&&c.jsx("div",{id:"consolidation-section",children:c.jsx(PX,{})}),y==="activity"&&c.jsxs("div",{id:"activity-section",className:"bg-white rounded-xl shadow-sm border border-gray-100 p-6",children:[c.jsx("h2",{className:"text-lg font-semibold text-gray-900 mb-6",children:"Atividade Recente"}),c.jsxs("div",{className:"text-center py-12",children:[c.jsx("div",{className:"text-6xl mb-4",children:"📈"}),c.jsx("h3",{className:"text-lg font-medium text-gray-900 mb-2",children:"Sistema de Auditoria"}),c.jsx("p",{className:"text-gray-600 mb-6",children:"O sistema de auditoria será implementado na próxima fase."}),c.jsx("button",{className:"px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors",children:"Configurar Auditoria"})]})]})]}),c.jsx("footer",{className:"bg-gray-50 border-t border-gray-200 py-4",children:c.jsx("div",{className:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",children:c.jsxs("p",{className:"text-center text-sm text-gray-500",children:["SISGEAD Premium 3.0 • Desenvolvido por ",c.jsx("strong",{children:"INFINITUS Sistemas Inteligentes"})," • CNPJ: 09.371.580/0001-06"]})})}),N&&r&&c.jsx(EX,{institutionId:r.id,onClose:()=>C(!1),onSuccess:()=>{C(!1),Z()}}),O&&r&&c.jsx(NX,{institutionId:r.id,onClose:()=>P(!1),onSuccess:()=>{P(!1),Z()}}),D&&te&&c.jsx(OX,{organization:te,onClose:()=>{_(!1),I(null)},onSuccess:z=>{_(!1),I(null),Z()}}),k&&B&&c.jsx(CX,{user:B,onClose:()=>{$(!1),Q(null)},onSuccess:z=>{$(!1),Q(null),Z()}}),oe&&c.jsx(TX,{onClose:()=>Y(!1),consolidation:ie,organizations:o,users:u}),c.jsx(DX,{})]})},_X=({onLogin:e,onCancel:t})=>{const[r,a]=b.useState({cpf:"",password:""}),[o,s]=b.useState({}),[u,f]=b.useState(!1),m=g=>{const y=g.replace(/\D/g,"");return y.length<=11?y.replace(/(\d{3})(\d)/,"$1.$2").replace(/(\d{3})(\d)/,"$1.$2").replace(/(\d{3})(\d{1,2})$/,"$1-$2"):g},p=g=>{const y=m(g.target.value);a({...r,cpf:y}),o.cpf&&s({...o,cpf:""})},h=async g=>{g.preventDefault();const y={};if(r.cpf.trim()||(y.cpf="CPF é obrigatório"),r.password||(y.password="Senha é obrigatória"),Object.keys(y).length>0){s(y);return}f(!0),s({});try{const S=await Ze.login({cpf:r.cpf.replace(/\D/g,""),password:r.password});if(!S.success||!S.session)throw new Error(S.error||"Erro ao fazer login");e(S.session)}catch(S){s({submit:S.message||"CPF ou senha incorretos"})}finally{f(!1)}};return c.jsxs("div",{className:"bg-white rounded-lg shadow-xl p-8 max-w-md w-full",children:[c.jsxs("div",{className:"text-center mb-8",children:[c.jsx("h2",{className:"text-3xl font-bold text-gray-900",children:"Acesso Premium"}),c.jsx("p",{className:"text-gray-600 mt-2",children:"Entre com suas credenciais de usuário Master"})]}),c.jsxs("form",{onSubmit:h,className:"space-y-6",children:[c.jsxs("div",{children:[c.jsx("label",{className:"block text-sm font-medium text-gray-700 mb-2",children:"CPF *"}),c.jsx("input",{type:"text",value:r.cpf,onChange:p,className:`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${o.cpf?"border-red-500":"border-gray-300"}`,placeholder:"000.000.000-00",maxLength:14,autoFocus:!0}),o.cpf&&c.jsx("p",{className:"mt-1 text-sm text-red-600",children:o.cpf})]}),c.jsxs("div",{children:[c.jsx("label",{className:"block text-sm font-medium text-gray-700 mb-2",children:"Senha *"}),c.jsx("input",{type:"password",value:r.password,onChange:g=>a({...r,password:g.target.value}),className:`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${o.password?"border-red-500":"border-gray-300"}`,placeholder:"Digite sua senha"}),o.password&&c.jsx("p",{className:"mt-1 text-sm text-red-600",children:o.password})]}),o.submit&&c.jsx("div",{className:"bg-red-50 border border-red-200 rounded-lg p-4",children:c.jsx("p",{className:"text-sm text-red-800",children:o.submit})}),c.jsxs("div",{className:"flex items-center gap-4",children:[t&&c.jsx("button",{type:"button",onClick:t,className:"flex-1 px-6 py-3 text-gray-700 hover:text-gray-900 font-medium border border-gray-300 rounded-lg hover:bg-gray-50",children:"Voltar"}),c.jsx("button",{type:"submit",disabled:u,className:"flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed",children:u?"Entrando...":"Entrar"})]})]})]})};class MX{constructor(){this.documents=new Map,this.index=new Map,this.initialized=!1,this.WIKI_DOCS={"guia-administrador":{id:"guia-administrador",title:"Guia do Administrador SISGEAD 3.0",category:"guias-admin",tags:["administrador","gestÃ£o","master","organizaÃ§Ãµes"],version:"3.0.0",lastUpdate:"2025-11-06",author:"Sistema",aiContext:!0,difficulty:"intermediÃ¡rio",path:"/wiki/02-guias-administrador/guia-administrador.md",content:`
 # Guia do Administrador SISGEAD 3.0
 
-## Níveis de Acesso
+## NÃ­veis de Acesso
 
 ### Master (Institucional)
-Permissões completas: gerenciar todas organizações, todos usuários, redefinir senhas, acesso a dados consolidados, IA institucional.
+PermissÃµes completas: gerenciar todas organizaÃ§Ãµes, todos usuÃ¡rios, redefinir senhas, acesso a dados consolidados, IA institucional.
 
 ### OrgAdmin (Organizacional)
-Permissões limitadas: gerenciar apenas sua organização, criar/editar usuários da org, IA organizacional.
+PermissÃµes limitadas: gerenciar apenas sua organizaÃ§Ã£o, criar/editar usuÃ¡rios da org, IA organizacional.
 
 ### Member (Membro)
-Permissões básicas: fazer avaliações, visualizar próprio perfil, IA pessoal.
+PermissÃµes bÃ¡sicas: fazer avaliaÃ§Ãµes, visualizar prÃ³prio perfil, IA pessoal.
 
-## Gestão de Organizações
+## GestÃ£o de OrganizaÃ§Ãµes
 
-### Criar Nova Organização
-Dashboard Master → Organizações → "+ Nova Organização"
+### Criar Nova OrganizaÃ§Ã£o
+Dashboard Master â†’ OrganizaÃ§Ãµes â†’ "+ Nova OrganizaÃ§Ã£o"
 
-Campos: Nome, Status (Ativa/Inativa/Suspensa), Máx Usuários (padrão: 50), Features (Avaliações, Relatórios, Analytics, Team Builder, IA), Aprovação de Avaliações.
+Campos: Nome, Status (Ativa/Inativa/Suspensa), MÃ¡x UsuÃ¡rios (padrÃ£o: 50), Features (AvaliaÃ§Ãµes, RelatÃ³rios, Analytics, Team Builder, IA), AprovaÃ§Ã£o de AvaliaÃ§Ãµes.
 
-### Editar Organização
-Lista → Editar → Alterar dados, configurações, ou EXCLUIR (irreversível).
+### Editar OrganizaÃ§Ã£o
+Lista â†’ Editar â†’ Alterar dados, configuraÃ§Ãµes, ou EXCLUIR (irreversÃ­vel).
 
-## Gestão de Usuários
+## GestÃ£o de UsuÃ¡rios
 
-### Criar Novo Usuário
-Dashboard → Usuários → "+ Novo Usuário"
+### Criar Novo UsuÃ¡rio
+Dashboard â†’ UsuÃ¡rios â†’ "+ Novo UsuÃ¡rio"
 
-Dados: Nome, Email (login único), Telefone (opcional), Departamento, Role (Member/OrgAdmin/Master), Organizações, Status.
+Dados: Nome, Email (login Ãºnico), Telefone (opcional), Departamento, Role (Member/OrgAdmin/Master), OrganizaÃ§Ãµes, Status.
 
-Senha inicial: Sisgead@2024 (usuário DEVE trocar no primeiro login).
+Senha inicial: Sisgead@2024 (usuÃ¡rio DEVE trocar no primeiro login).
 
-### Editar Usuário
+### Editar UsuÃ¡rio
 
-1. Alterar Dados: Nome, email, telefone, departamento, organizações, role.
+1. Alterar Dados: Nome, email, telefone, departamento, organizaÃ§Ãµes, role.
 
 2. Redefinir Senha:
-   - Quando: Usuário esqueceu senha, conta bloqueada, reset de segurança
-   - Como: Botão "Redefinir Senha" → Senha volta para Sisgead@2024
-   - Efeito: Força criação de nova senha, remove bloqueio
+   - Quando: UsuÃ¡rio esqueceu senha, conta bloqueada, reset de seguranÃ§a
+   - Como: BotÃ£o "Redefinir Senha" â†’ Senha volta para Sisgead@2024
+   - Efeito: ForÃ§a criaÃ§Ã£o de nova senha, remove bloqueio
 
-3. Excluir Usuário:
-   - Irreversível: Remove TODOS os dados
-   - Uso: Funcionário desligado, conta duplicada
+3. Excluir UsuÃ¡rio:
+   - IrreversÃ­vel: Remove TODOS os dados
+   - Uso: FuncionÃ¡rio desligado, conta duplicada
 
 ## Sistema de Senhas
 
-Senha Padrão: Sisgead@2024
-Usado em: Novos usuários, reset de senha
+Senha PadrÃ£o: Sisgead@2024
+Usado em: Novos usuÃ¡rios, reset de senha
 
-Política:
-- Mínimo 8 caracteres
-- 1 maiúscula, 1 minúscula, 1 número, 1 especial
-- Bloqueio após 5 tentativas falhadas
+PolÃ­tica:
+- MÃ­nimo 8 caracteres
+- 1 maiÃºscula, 1 minÃºscula, 1 nÃºmero, 1 especial
+- Bloqueio apÃ³s 5 tentativas falhadas
 - Admin desbloqueia via "Redefinir Senha"
 
 ### Fluxos Comuns
 
-Novo Usuário:
-1. Admin cria → Senha padrão
-2. Usuário recebe email
-3. Primeiro login → Pede nova senha
-4. Cria senha forte → Acesso liberado
+Novo UsuÃ¡rio:
+1. Admin cria â†’ Senha padrÃ£o
+2. UsuÃ¡rio recebe email
+3. Primeiro login â†’ Pede nova senha
+4. Cria senha forte â†’ Acesso liberado
 
 Esqueceu Senha:
-1. Usuário falha login
+1. UsuÃ¡rio falha login
 2. Contacta admin
 3. Admin "Redefinir Senha"
-4. Volta para padrão
-5. Usuário cria nova
+4. Volta para padrÃ£o
+5. UsuÃ¡rio cria nova
 
 Conta Bloqueada:
-1. Errou 5x → Bloqueio
+1. Errou 5x â†’ Bloqueio
 2. Admin "Redefinir Senha"
 3. Bloqueio removido
-4. Senha padrão
-5. Usuário cria nova
+4. Senha padrÃ£o
+5. UsuÃ¡rio cria nova
 
 ## IA Assistant
 
-Botão Flutuante: Canto inferior direito
-- Master: Roxo com 👑
-- OrgAdmin: Azul com 👔
-- Member: Verde com 👤
+BotÃ£o Flutuante: Canto inferior direito
+- Master: Roxo com ðŸ‘‘
+- OrgAdmin: Azul com ðŸ‘”
+- Member: Verde com ðŸ‘¤
 
 Quick Actions (Master):
-- Visão Institucional
-- Comparar Organizações
+- VisÃ£o Institucional
+- Comparar OrganizaÃ§Ãµes
 - Mapeamento de Talentos
-- Insights Estratégicos
+- Insights EstratÃ©gicos
 
 Exemplos de Perguntas:
-- "Quantos usuários ativos?"
-- "Quais organizações inativas?"
+- "Quantos usuÃ¡rios ativos?"
+- "Quais organizaÃ§Ãµes inativas?"
 - "Como redefinir senha?"
-- "Distribuição de perfis DISC?"
+- "DistribuiÃ§Ã£o de perfis DISC?"
 
 ## Troubleshooting
 
-Usuário não loga:
-→ Editar Usuário → Redefinir Senha
+UsuÃ¡rio nÃ£o loga:
+â†’ Editar UsuÃ¡rio â†’ Redefinir Senha
 
-Organização não aparece:
-→ Editar Usuário → Organizações → Marcar → Salvar
+OrganizaÃ§Ã£o nÃ£o aparece:
+â†’ Editar UsuÃ¡rio â†’ OrganizaÃ§Ãµes â†’ Marcar â†’ Salvar
 
-IA não aparece:
-→ Verificar feature "ai-assistant" na org
-      `,wordCount:450},"sistema-senhas":{id:"sistema-senhas",title:"Sistema de Gerenciamento de Senhas",category:"guias-admin",tags:["senha","segurança","reset","bloqueio"],version:"3.0.0",lastUpdate:"2025-11-06",author:"Sistema",aiContext:!0,difficulty:"básico",path:"/wiki/02-guias-administrador/sistema-senhas.md",content:`
+IA nÃ£o aparece:
+â†’ Verificar feature "ai-assistant" na org
+      `,wordCount:450},"sistema-senhas":{id:"sistema-senhas",title:"Sistema de Gerenciamento de Senhas",category:"guias-admin",tags:["senha","seguranÃ§a","reset","bloqueio"],version:"3.0.0",lastUpdate:"2025-11-06",author:"Sistema",aiContext:!0,difficulty:"bÃ¡sico",path:"/wiki/02-guias-administrador/sistema-senhas.md",content:`
 # Sistema de Senhas SISGEAD 3.0
 
-## Senha Padrão
+## Senha PadrÃ£o
 
 Senha: Sisgead@2024
 
-Quando é usada:
-- Criação de novos usuários
+Quando Ã© usada:
+- CriaÃ§Ã£o de novos usuÃ¡rios
 - Reset de senha por administrador
-- Recuperação de conta bloqueada
+- RecuperaÃ§Ã£o de conta bloqueada
 
-Segurança:
-- Usuário NÃO pode manter senha padrão
-- Sistema FORÇA troca no primeiro login
+SeguranÃ§a:
+- UsuÃ¡rio NÃƒO pode manter senha padrÃ£o
+- Sistema FORÃ‡A troca no primeiro login
 - Campo requirePasswordChange: true
 
-## Política de Senhas
+## PolÃ­tica de Senhas
 
-Requisitos obrigatórios:
-✓ Mínimo 8 caracteres
-✓ Pelo menos 1 letra maiúscula
-✓ Pelo menos 1 letra minúscula
-✓ Pelo menos 1 número
-✓ Pelo menos 1 caractere especial (@, #, $, %, etc.)
+Requisitos obrigatÃ³rios:
+âœ“ MÃ­nimo 8 caracteres
+âœ“ Pelo menos 1 letra maiÃºscula
+âœ“ Pelo menos 1 letra minÃºscula
+âœ“ Pelo menos 1 nÃºmero
+âœ“ Pelo menos 1 caractere especial (@, #, $, %, etc.)
 
-Bloqueio automático:
-- Após 5 tentativas falhadas de login
+Bloqueio automÃ¡tico:
+- ApÃ³s 5 tentativas falhadas de login
 - Admin pode desbloquear via "Redefinir Senha"
 
 ## Redefinir Senha (Admin)
 
-Acesso: Editar Usuário → Botão "Redefinir Senha" (amarelo)
+Acesso: Editar UsuÃ¡rio â†’ BotÃ£o "Redefinir Senha" (amarelo)
 
 O que acontece:
 1. Senha volta para Sisgead@2024
-2. requirePasswordChange = true (força nova senha)
+2. requirePasswordChange = true (forÃ§a nova senha)
 3. failedLoginAttempts = 0 (limpa tentativas)
 4. isLocked = false (desbloqueia conta)
 
 Quando usar:
-- Usuário esqueceu a senha
+- UsuÃ¡rio esqueceu a senha
 - Conta bloqueada por tentativas falhadas
-- Reset de segurança (suspeita de comprometimento)
+- Reset de seguranÃ§a (suspeita de comprometimento)
 
 ## Fluxos Completos
 
-### Novo Usuário
-1. Admin cria usuário
+### Novo UsuÃ¡rio
+1. Admin cria usuÃ¡rio
 2. Sistema define senha = Sisgead@2024
 3. requirePasswordChange = true
-4. Usuário recebe credenciais
+4. UsuÃ¡rio recebe credenciais
 5. Primeiro login detecta requirePasswordChange
-6. Formulário de nova senha aparece
-7. Usuário cria senha forte
+6. FormulÃ¡rio de nova senha aparece
+7. UsuÃ¡rio cria senha forte
 8. requirePasswordChange = false
 9. Login normal liberado
 
-### Usuário Esqueceu Senha
-1. Usuário tenta logar e falha
-2. Usuário contacta administrador
-3. Admin acessa: Dashboard → Usuários → Editar Usuário
+### UsuÃ¡rio Esqueceu Senha
+1. UsuÃ¡rio tenta logar e falha
+2. UsuÃ¡rio contacta administrador
+3. Admin acessa: Dashboard â†’ UsuÃ¡rios â†’ Editar UsuÃ¡rio
 4. Admin clica "Redefinir Senha"
-5. Modal de confirmação aparece
+5. Modal de confirmaÃ§Ã£o aparece
 6. Admin confirma
 7. Sistema reseta senha para Sisgead@2024
-8. Admin informa usuário da senha temporária
-9. Usuário faz login com Sisgead@2024
-10. Sistema força criação de nova senha
+8. Admin informa usuÃ¡rio da senha temporÃ¡ria
+9. UsuÃ¡rio faz login com Sisgead@2024
+10. Sistema forÃ§a criaÃ§Ã£o de nova senha
 11. Acesso liberado
 
 ### Conta Bloqueada
-1. Usuário erra senha 5 vezes
+1. UsuÃ¡rio erra senha 5 vezes
 2. Sistema bloqueia: isLocked = true
 3. Mensagem: "Conta bloqueada. Contacte administrador"
-4. Usuário contacta admin
-5. Admin: Editar Usuário → Redefinir Senha
+4. UsuÃ¡rio contacta admin
+5. Admin: Editar UsuÃ¡rio â†’ Redefinir Senha
 6. Sistema automaticamente:
    - isLocked = false
    - failedLoginAttempts = 0
    - senha = Sisgead@2024
    - requirePasswordChange = true
-7. Admin informa usuário
-8. Usuário loga e cria nova senha
+7. Admin informa usuÃ¡rio
+8. UsuÃ¡rio loga e cria nova senha
 
-## Boas Práticas
+## Boas PrÃ¡ticas
 
 Para Administradores:
-✓ Sempre informe o usuário após redefinir senha
-✓ Peça confirmação de identidade antes de resetar
-✓ Documente resets frequentes (pode indicar problema)
-✓ Oriente sobre política de senhas fortes
+âœ“ Sempre informe o usuÃ¡rio apÃ³s redefinir senha
+âœ“ PeÃ§a confirmaÃ§Ã£o de identidade antes de resetar
+âœ“ Documente resets frequentes (pode indicar problema)
+âœ“ Oriente sobre polÃ­tica de senhas fortes
 
-Para Usuários:
-✓ Use gerenciador de senhas (LastPass, 1Password)
-✓ Nunca compartilhe senha
-✓ Troque regularmente (sugestão: 90 dias)
-✓ Use senhas diferentes por sistema
+Para UsuÃ¡rios:
+âœ“ Use gerenciador de senhas (LastPass, 1Password)
+âœ“ Nunca compartilhe senha
+âœ“ Troque regularmente (sugestÃ£o: 90 dias)
+âœ“ Use senhas diferentes por sistema
 
-## Segurança Técnica
+## SeguranÃ§a TÃ©cnica
 
 Hash de Senha:
 - Algoritmo: bcrypt (cost factor 10)
-- Salt automático
+- Salt automÃ¡tico
 - Nunca armazenada em plain text
 
-Validação:
+ValidaÃ§Ã£o:
 - Frontend: Regex para requisitos
-- Backend: bcrypt.compare() para verificação
+- Backend: bcrypt.compare() para verificaÃ§Ã£o
 - Timeout: 3 segundos para prevenir timing attacks
 
 Auditoria:
 - lastPasswordChange registrado
 - failedLoginAttempts incrementado
-- isLocked quando ≥ 5 tentativas
-      `,wordCount:380},"arquitetura-ia-dual":{id:"arquitetura-ia-dual",title:"Arquitetura IA Dual-Level",category:"arquitetura",tags:["ia","arquitetura","gemini","contexto"],version:"3.0.0",lastUpdate:"2025-11-06",author:"Sistema",aiContext:!0,difficulty:"avançado",path:"/wiki/03-arquitetura/arquitetura-ia-dual-level.md",content:`
+- isLocked quando â‰¥ 5 tentativas
+      `,wordCount:380},"arquitetura-ia-dual":{id:"arquitetura-ia-dual",title:"Arquitetura IA Dual-Level",category:"arquitetura",tags:["ia","arquitetura","gemini","contexto"],version:"3.0.0",lastUpdate:"2025-11-06",author:"Sistema",aiContext:!0,difficulty:"avanÃ§ado",path:"/wiki/03-arquitetura/arquitetura-ia-dual-level.md",content:`
 # Arquitetura IA Dual-Level
 
 ## Conceito
 
-Sistema de IA com dois níveis de contexto:
+Sistema de IA com dois nÃ­veis de contexto:
 
 1. Institucional (Master/OrgAdmin)
-   - Acesso a TODOS os dados da instituição
-   - Análise cross-org
-   - Insights estratégicos
+   - Acesso a TODOS os dados da instituiÃ§Ã£o
+   - AnÃ¡lise cross-org
+   - Insights estratÃ©gicos
 
 2. Organizacional (OrgAdmin/Member)
-   - Acesso a dados de UMA organização
-   - Análise isolada
+   - Acesso a dados de UMA organizaÃ§Ã£o
+   - AnÃ¡lise isolada
    - Workspace v2.0 dedicado
 
 ## Componentes
@@ -2294,37 +2294,37 @@ AIContext:
 - Provedor global de estado
 - useAI() hook
 - useAIAccess() hook
-- Gerencia conversação e contexto
+- Gerencia conversaÃ§Ã£o e contexto
 
 AIFloatingButton:
 - Adaptativo por role
-- Master: Roxo 👑
-- OrgAdmin: Azul 👔
-- Member: Verde 👤
+- Master: Roxo ðŸ‘‘
+- OrgAdmin: Azul ðŸ‘”
+- Member: Verde ðŸ‘¤
 
 UnifiedAIModal:
 - Interface contextual
 - Quick actions por role
-- Histórico de conversação
+- HistÃ³rico de conversaÃ§Ã£o
 
 ## Contexto Data
 
-Master vê:
+Master vÃª:
 - currentInstitution
 - allOrganizations[]
 - allUsers[]
 - consolidatedAssessments[]
 
-OrgAdmin vê:
+OrgAdmin vÃª:
 - currentOrganization
 - orgUsers[]
 - orgAssessments[]
 
-Member vê:
+Member vÃª:
 - currentUser
 - ownAssessments[]
 
-## Integração Gemini
+## IntegraÃ§Ã£o Gemini
 
 geminiService.ts (v2.0):
 - Cloudflare Worker proxy
@@ -2335,116 +2335,116 @@ PremiumAIService (futuro):
 - queryInstitutional()
 - queryOrganizational()
 - queryPersonal()
-      `,wordCount:180},"como-fazer-avaliacao":{id:"como-fazer-avaliacao",title:"Como Fazer Avaliação DISC",category:"guias-usuario",tags:["disc","avaliação","questionário","tutorial"],version:"3.0.0",lastUpdate:"2025-11-07",author:"Sistema",aiContext:!0,difficulty:"básico",path:"/wiki/01-guias-usuario/como-fazer-avaliacao.md",content:`
-# Como Fazer Avaliação DISC
+      `,wordCount:180},"como-fazer-avaliacao":{id:"como-fazer-avaliacao",title:"Como Fazer AvaliaÃ§Ã£o DISC",category:"guias-usuario",tags:["disc","avaliaÃ§Ã£o","questionÃ¡rio","tutorial"],version:"3.0.0",lastUpdate:"2025-11-07",author:"Sistema",aiContext:!0,difficulty:"bÃ¡sico",path:"/wiki/01-guias-usuario/como-fazer-avaliacao.md",content:`
+# Como Fazer AvaliaÃ§Ã£o DISC
 
 Passo 1: Acesse o link enviado pelo administrador (funciona em celular, tablet, computador).
 
-Passo 2: Preencha Nome completo e CPF (apenas números).
+Passo 2: Preencha Nome completo e CPF (apenas nÃºmeros).
 
-Passo 3: Responda questionário (15-20 min):
+Passo 3: Responda questionÃ¡rio (15-20 min):
 - 24 perguntas com 4 palavras
 - Escolha 1 MAIS parecida e 1 MENOS parecida
-- Primeira impressão é melhor
+- Primeira impressÃ£o Ã© melhor
 - Pense no comportamento NO TRABALHO
 
 Passo 4: Veja resultado:
 - Perfil principal: D, I, S ou C
-- Gráfico de pontos
-- Características
+- GrÃ¡fico de pontos
+- CaracterÃ­sticas
 - Funcionamento em equipe
 
-Passo 5: Salve PDF (Imprimir → Salvar como PDF)
+Passo 5: Salve PDF (Imprimir â†’ Salvar como PDF)
 
 Problemas comuns:
-- Questionário não salva: Limpe cache, use navegador atualizado
-- Link não funciona: Copie link completo, tente modo anônimo
-- Refazer avaliação: Entre com CPF → sistema pergunta se quer substituir
+- QuestionÃ¡rio nÃ£o salva: Limpe cache, use navegador atualizado
+- Link nÃ£o funciona: Copie link completo, tente modo anÃ´nimo
+- Refazer avaliaÃ§Ã£o: Entre com CPF â†’ sistema pergunta se quer substituir
 
 Dicas:
-1. Reserve 20-30 min sem interrupções
-2. Seja honesto (não há certo/errado)
-3. Pense no trabalho, não lazer
-4. Não pense muito
+1. Reserve 20-30 min sem interrupÃ§Ãµes
+2. Seja honesto (nÃ£o hÃ¡ certo/errado)
+3. Pense no trabalho, nÃ£o lazer
+4. NÃ£o pense muito
 5. Ambiente calmo
-      `,wordCount:180},"primeiro-acesso":{id:"primeiro-acesso",title:"Primeiro Acesso ao SISGEAD 3.0",category:"guias-usuario",tags:["primeiro-acesso","login","cadastro","senha"],version:"3.0.0",lastUpdate:"2025-11-07",author:"Sistema",aiContext:!0,difficulty:"básico",path:"/wiki/01-guias-usuario/primeiro-acesso.md",content:`
+      `,wordCount:180},"primeiro-acesso":{id:"primeiro-acesso",title:"Primeiro Acesso ao SISGEAD 3.0",category:"guias-usuario",tags:["primeiro-acesso","login","cadastro","senha"],version:"3.0.0",lastUpdate:"2025-11-07",author:"Sistema",aiContext:!0,difficulty:"bÃ¡sico",path:"/wiki/01-guias-usuario/primeiro-acesso.md",content:`
 # Primeiro Acesso
 
 Para Membros:
-1. Receba link, CPF, senha temporária Sisgead@2024
-2. Faça login
-3. Sistema FORÇA criar nova senha (mín 8 chars, 1 maiúscula, 1 minúscula, 1 número, 1 especial)
+1. Receba link, CPF, senha temporÃ¡ria Sisgead@2024
+2. FaÃ§a login
+3. Sistema FORÃ‡A criar nova senha (mÃ­n 8 chars, 1 maiÃºscula, 1 minÃºscula, 1 nÃºmero, 1 especial)
 4. Pronto!
 
 Para OrgAdmin:
 - Mesmo fluxo de membro
-- Acesso a: Dashboard org, gerenciar usuários, criar membros, relatórios
-- NÃO vê outras organizações
+- Acesso a: Dashboard org, gerenciar usuÃ¡rios, criar membros, relatÃ³rios
+- NÃƒO vÃª outras organizaÃ§Ãµes
 
 Para Master:
 - Login com senha do setup
-- Acesso total: todas orgs, todos usuários, criar orgs, configurações, relatórios consolidados
+- Acesso total: todas orgs, todos usuÃ¡rios, criar orgs, configuraÃ§Ãµes, relatÃ³rios consolidados
 
-Segurança:
-- Troque senha temporária imediatamente
-- Use senha forte e única
-- Não compartilhe
-- Faça logout ao sair
+SeguranÃ§a:
+- Troque senha temporÃ¡ria imediatamente
+- Use senha forte e Ãºnica
+- NÃ£o compartilhe
+- FaÃ§a logout ao sair
 
 Se esquecer senha: Admin pode redefinir para Sisgead@2024
 
 Conta bloqueada (5 tentativas): Admin redefine senha (desbloqueia)
 
 Navegadores suportados: Chrome 90+, Firefox 88+, Edge 90+, Safari 14+
-NÃO suportado: Internet Explorer
+NÃƒO suportado: Internet Explorer
 
 Dispositivos: Desktop (recomendado), notebook, tablet, celular (funcional mas otimizado para desktop)
 
 Problemas:
-- Senha temporária não funciona: Verifique maiúsculas/minúsculas, contacte admin
-- CPF não reconhecido: Digite apenas números, verifique cadastro com admin
+- Senha temporÃ¡ria nÃ£o funciona: Verifique maiÃºsculas/minÃºsculas, contacte admin
+- CPF nÃ£o reconhecido: Digite apenas nÃºmeros, verifique cadastro com admin
 - Erro criar senha: Verifique requisitos, tente senha diferente, limpe cache
-      `,wordCount:220},"problemas-login":{id:"problemas-login",title:"Problemas de Login e Acesso",category:"troubleshooting",tags:["login","senha","cpf","acesso","erro"],version:"3.0.0",lastUpdate:"2025-11-07",author:"Sistema",aiContext:!0,difficulty:"básico",path:"/wiki/05-troubleshooting/problemas-login.md",content:`
+      `,wordCount:220},"problemas-login":{id:"problemas-login",title:"Problemas de Login e Acesso",category:"troubleshooting",tags:["login","senha","cpf","acesso","erro"],version:"3.0.0",lastUpdate:"2025-11-07",author:"Sistema",aiContext:!0,difficulty:"bÃ¡sico",path:"/wiki/05-troubleshooting/problemas-login.md",content:`
 # Problemas de Login
 
-Erro "CPF não encontrado":
-- Digite apenas números (não 123.456.789-00, sim 12345678900)
+Erro "CPF nÃ£o encontrado":
+- Digite apenas nÃºmeros (nÃ£o 123.456.789-00, sim 12345678900)
 - Verifique cadastro com admin
-- Pode estar em outra organização (peça link correto)
+- Pode estar em outra organizaÃ§Ã£o (peÃ§a link correto)
 
 Erro "Senha incorreta":
-- Primeiro acesso? Senha: Sisgead@2024 (S maiúsculo)
+- Primeiro acesso? Senha: Sisgead@2024 (S maiÃºsculo)
 - Verifique Caps Lock desativado
 - Admin pode redefinir senha
 
 Conta bloqueada (5 tentativas falhadas):
 - Apenas admin desbloqueia
-- Admin redefine senha → volta Sisgead@2024 + desbloqueia
-- Faça login e crie nova senha
+- Admin redefine senha â†’ volta Sisgead@2024 + desbloqueia
+- FaÃ§a login e crie nova senha
 
 Deve alterar senha:
-- Você está com senha temporária
-- Crie nova senha: mín 8 chars, 1 maiúscula, 1 minúscula, 1 número, 1 especial
-- Exemplos válidos: Minhasenha@2025, Admin#2024Forte
+- VocÃª estÃ¡ com senha temporÃ¡ria
+- Crie nova senha: mÃ­n 8 chars, 1 maiÃºscula, 1 minÃºscula, 1 nÃºmero, 1 especial
+- Exemplos vÃ¡lidos: Minhasenha@2025, Admin#2024Forte
 
-Página branca após login:
+PÃ¡gina branca apÃ³s login:
 1. Limpe cache (Ctrl+Shift+Del)
-2. Pressione F12 → Console → veja erros
-3. Teste modo anônimo
+2. Pressione F12 â†’ Console â†’ veja erros
+3. Teste modo anÃ´nimo
 4. Atualize navegador
 
 Sistema lento:
-- Teste internet (mín 5 Mbps)
+- Teste internet (mÃ­n 5 Mbps)
 - Feche outras abas
 - Reinicie navegador/computador
 
 Quando contactar suporte:
-- Nenhuma solução funcionou
-- Erro persiste após limpar cache
-- Mensagem não documentada
-- Sistema não carrega há 10+ min
+- Nenhuma soluÃ§Ã£o funcionou
+- Erro persiste apÃ³s limpar cache
+- Mensagem nÃ£o documentada
+- Sistema nÃ£o carrega hÃ¡ 10+ min
 
-Informações para fornecer:
+InformaÃ§Ãµes para fornecer:
 1. CPF
 2. Mensagem de erro exata (print)
 3. Navegador usado
@@ -2452,50 +2452,50 @@ Informações para fornecer:
 5. Print do console (F12)
 
 Checklist antes de reportar:
-- CPF apenas números
+- CPF apenas nÃºmeros
 - Senha correta
 - Caps Lock desativado
 - Cache limpo
 - Navegador atualizado
-- Testado modo anônimo
+- Testado modo anÃ´nimo
 - Internet 5+ Mbps
 - Console sem erros
-      `,wordCount:250},"pagina-branca":{id:"pagina-branca",title:"Solução: Página em Branco",category:"troubleshooting",tags:["página-branca","erro","cache","deploy"],version:"3.0.0",lastUpdate:"2025-11-07",author:"Sistema",aiContext:!0,difficulty:"intermediário",path:"/wiki/05-troubleshooting/pagina-branca.md",content:`
-# Página em Branco - Solução
+      `,wordCount:250},"pagina-branca":{id:"pagina-branca",title:"SoluÃ§Ã£o: PÃ¡gina em Branco",category:"troubleshooting",tags:["pÃ¡gina-branca","erro","cache","deploy"],version:"3.0.0",lastUpdate:"2025-11-07",author:"Sistema",aiContext:!0,difficulty:"intermediÃ¡rio",path:"/wiki/05-troubleshooting/pagina-branca.md",content:`
+# PÃ¡gina em Branco - SoluÃ§Ã£o
 
 Causas: 80% cache, 15% erro JavaScript, 5% deploy.
 
-Solução 1 - Limpar Cache (TENTE PRIMEIRO):
-Chrome/Edge: Ctrl+Shift+Del → Todo período → Marque cookies e cache → Limpar → Feche TUDO → Reabra
-Firefox: Ctrl+Shift+Del → Tudo → Cookies e cache → Limpar → Feche → Reabra
-Safari: Preferências → Privacidade → Gerenciar Dados → Remover github.io
+SoluÃ§Ã£o 1 - Limpar Cache (TENTE PRIMEIRO):
+Chrome/Edge: Ctrl+Shift+Del â†’ Todo perÃ­odo â†’ Marque cookies e cache â†’ Limpar â†’ Feche TUDO â†’ Reabra
+Firefox: Ctrl+Shift+Del â†’ Tudo â†’ Cookies e cache â†’ Limpar â†’ Feche â†’ Reabra
+Safari: PreferÃªncias â†’ Privacidade â†’ Gerenciar Dados â†’ Remover github.io
 
-Solução 2 - Hard Refresh:
+SoluÃ§Ã£o 2 - Hard Refresh:
 Windows: Ctrl+F5 ou Ctrl+Shift+R
 Mac: Cmd+Shift+R
 
-Solução 3 - Modo Anônimo:
+SoluÃ§Ã£o 3 - Modo AnÃ´nimo:
 Chrome/Edge: Ctrl+Shift+N
 Firefox: Ctrl+Shift+P
-Se funciona em anônimo → problema é cache/extensões
+Se funciona em anÃ´nimo â†’ problema Ã© cache/extensÃµes
 
-Solução 4 - Console F12:
-1. F12 → Console → Recarregue
-2. "Failed to load resource" → Assets não carregaram → Aguarde 10 min
-3. "Uncaught SyntaxError" → JS corrompido → Limpe cache
-4. "Cannot read property" → React não iniciou → Verifique se index.js carregou
+SoluÃ§Ã£o 4 - Console F12:
+1. F12 â†’ Console â†’ Recarregue
+2. "Failed to load resource" â†’ Assets nÃ£o carregaram â†’ Aguarde 10 min
+3. "Uncaught SyntaxError" â†’ JS corrompido â†’ Limpe cache
+4. "Cannot read property" â†’ React nÃ£o iniciou â†’ Verifique se index.js carregou
 
-Solução 5 - Network F12:
-1. F12 → Network → Recarregue
+SoluÃ§Ã£o 5 - Network F12:
+1. F12 â†’ Network â†’ Recarregue
 2. Procure: index.html (200 OK), index.css (200 OK), index.js (200 OK)
-3. Se 404 → Deploy incompleto → Aguarde 10 min
+3. Se 404 â†’ Deploy incompleto â†’ Aguarde 10 min
 
-Solução 6 - URLs Alternativas:
+SoluÃ§Ã£o 6 - URLs Alternativas:
 Teste: /sisgead-3.0/, /Sisgead-3.0/, /SISGEAD-3.0/
 
-Solução 7 - Navegador:
-✅ Chrome 90+, Firefox 88+, Edge 90+, Safari 14+
-❌ Internet Explorer
+SoluÃ§Ã£o 7 - Navegador:
+âœ… Chrome 90+, Firefox 88+, Edge 90+, Safari 14+
+âŒ Internet Explorer
 Atualize: chrome://settings/help
 
 Taxa sucesso:
@@ -2505,79 +2505,158 @@ Taxa sucesso:
 - Outros: 5%
 
 Quando escalar:
-- Todas soluções falharam
-- Erro não documentado
+- Todas soluÃ§Ãµes falharam
+- Erro nÃ£o documentado
 - Problema persiste 1+ hora
-- Outros usuários reportam
+- Outros usuÃ¡rios reportam
 
-Informações fornecer:
+InformaÃ§Ãµes fornecer:
 - URL completa
-- Navegador + versão
+- Navegador + versÃ£o
 - Print console F12
 - Print network F12
 - Timestamp
-- Limpou cache? Sim/Não
-- Funciona modo anônimo? Sim/Não
-      `,wordCount:280},"multi-tenant":{id:"multi-tenant",title:"Arquitetura Multi-Tenant",category:"arquitetura",tags:["multi-tenant","institucional","hierarquia"],version:"3.0.0",lastUpdate:"2025-11-07",author:"Sistema",aiContext:!0,difficulty:"avançado",path:"/wiki/03-arquitetura/multi-tenant.md",content:`
+- Limpou cache? Sim/NÃ£o
+- Funciona modo anÃ´nimo? Sim/NÃ£o
+      `,wordCount:280},"multi-tenant":{id:"multi-tenant",title:"Arquitetura Multi-Tenant",category:"arquitetura",tags:["multi-tenant","institucional","hierarquia"],version:"3.0.0",lastUpdate:"2025-11-07",author:"Sistema",aiContext:!0,difficulty:"avanÃ§ado",path:"/wiki/03-arquitetura/multi-tenant.md",content:`
 # Arquitetura Multi-Tenant
 
-3 Níveis: Instituição (Master) → Organizações (OrgAdmin) → Usuários (Member)
+3 NÃ­veis: InstituiÃ§Ã£o (Master) â†’ OrganizaÃ§Ãµes (OrgAdmin) â†’ UsuÃ¡rios (Member)
 
 Master:
-- Acesso: Todas orgs, todos usuários, criar/editar/excluir orgs, relatórios consolidados, config global
-- Responsabilidades: Estrutura de orgs, definir admins, monitorar performance, políticas
+- Acesso: Todas orgs, todos usuÃ¡rios, criar/editar/excluir orgs, relatÃ³rios consolidados, config global
+- Responsabilidades: Estrutura de orgs, definir admins, monitorar performance, polÃ­ticas
 
 OrgAdmin:
-- Acesso: Sua org apenas, todos usuários da org, criar/editar/excluir usuários, relatórios org
-- NÃO vê outras orgs
+- Acesso: Sua org apenas, todos usuÃ¡rios da org, criar/editar/excluir usuÃ¡rios, relatÃ³rios org
+- NÃƒO vÃª outras orgs
 
 Member:
-- Acesso: Próprios dados, fazer DISC, ver perfil
-- NÃO vê outros usuários, sem funções admin
+- Acesso: PrÃ³prios dados, fazer DISC, ver perfil
+- NÃƒO vÃª outros usuÃ¡rios, sem funÃ§Ãµes admin
 
 Isolamento de Dados:
-- Org A NÃO vê Org B
-- OrgAdmin A NÃO acessa Org B
-- Apenas Master vê todos
+- Org A NÃƒO vÃª Org B
+- OrgAdmin A NÃƒO acessa Org B
+- Apenas Master vÃª todos
 - Storage: localStorage segmentado por orgId
-- Validações permissão em queries
+- ValidaÃ§Ãµes permissÃ£o em queries
 
 Fluxos:
-- Criação: Master → OrgAdmin → Member → Avaliação → Dados na org
-- Relatórios: Member (só seu), OrgAdmin (toda org), Master (consolidado)
+- CriaÃ§Ã£o: Master â†’ OrgAdmin â†’ Member â†’ AvaliaÃ§Ã£o â†’ Dados na org
+- RelatÃ³rios: Member (sÃ³ seu), OrgAdmin (toda org), Master (consolidado)
 
 Casos Uso:
 - Empresa multi-filial
 - Universidade (faculdades)
 - Governo (escolas)
-- Corporação (departamentos)
+- CorporaÃ§Ã£o (departamentos)
 
-Configurações Org:
-- maxUsers, maxAssessments/mês
-- Features: DISC, Team Builder IA, Relatórios, Export PDF, API, Auditoria
+ConfiguraÃ§Ãµes Org:
+- maxUsers, maxAssessments/mÃªs
+- Features: DISC, Team Builder IA, RelatÃ³rios, Export PDF, API, Auditoria
 - Custom branding (opcional)
 
-Transferências (só Master):
+TransferÃªncias (sÃ³ Master):
 - userService.transfer(userId, fromOrg, toOrg)
-- Histórico preservado
+- HistÃ³rico preservado
 
-Segurança:
+SeguranÃ§a:
 - Master: CPF + senha forte (12+ chars)
 - OrgAdmin: CPF + senha (8+ chars)
 - Member: CPF + senha (8+ chars)
-- Todas ações auditadas
+- Todas aÃ§Ãµes auditadas
 
 Compliance LGPD:
 - Consentimento por org
-- Direito acesso, correção, exclusão
+- Direito acesso, correÃ§Ã£o, exclusÃ£o
 - Portabilidade JSON/CSV
-      `,wordCount:250}}}async initialize(){this.initialized||(Object.values(this.WIKI_DOCS).forEach(t=>{this.documents.set(t.id,t),this.indexDocument(t)}),this.initialized=!0,console.log(`✅ WikiService initialized with ${this.documents.size} documents`))}indexDocument(t){if(!t.aiContext)return;this.extractKeywords(t.content+" "+t.title+" "+t.tags.join(" ")).forEach(a=>{this.index.has(a)||this.index.set(a,new Set),this.index.get(a).add(t.id)})}extractKeywords(t){const r=t.toLowerCase().replace(/[^\w\sáàâãéèêíìîóòôõúùûç]/g," ").replace(/\s+/g," ").trim(),a=new Set(["o","a","os","as","um","uma","de","do","da","dos","das","em","no","na","nos","nas","para","com","por","e","ou","que","se","é","são","como","quando","onde","qual","quais"]);return r.split(" ").filter(o=>o.length>2&&!a.has(o)).filter((o,s,u)=>u.indexOf(o)===s)}async search(t,r=3){await this.initialize();const a=this.extractKeywords(t),o=new Map;return a.forEach(u=>{const f=this.index.get(u);f&&f.forEach(m=>{o.set(m,(o.get(m)||0)+1)})}),Array.from(o.entries()).map(([u,f])=>{const m=this.documents.get(u);return{document:m,relevance:f/a.length,matchedSections:this.findMatchedSections(m,a)}}).sort((u,f)=>f.relevance-u.relevance).slice(0,r)}findMatchedSections(t,r){const a=[],o=t.content.split(`
-`);let s="";for(const u of o)u.startsWith("#")&&(s=u.replace(/^#+\s*/,"")),r.some(m=>u.toLowerCase().includes(m))&&s&&!a.includes(s)&&a.push(s);return a.slice(0,3)}async getDocument(t){return await this.initialize(),this.documents.get(t)||null}async getByCategory(t){return await this.initialize(),Array.from(this.documents.values()).filter(r=>r.category===t)}async getContextForAI(t){const r=await this.search(t,2);if(r.length===0)return"Nenhuma documentação específica encontrada para esta pergunta.";let a=`📚 DOCUMENTAÇÃO RELEVANTE:
+      `,wordCount:250},"holocracia-papeis":{id:"holocracia-papeis",title:"Gestão por Papéis - Holocracia",category:"metodologia",tags:["holocracia","papéis","círculos","autoridade","equipes"],version:"3.0.0",lastUpdate:"2025-11-07",author:"Sistema",aiContext:!0,difficulty:"avançado",path:"/wiki/metodologias/holocracia.md",content:`
+# Gestão por Papéis (Holocracia)
+
+IMPORTANTE: A IA deve buscar na web informações atualizadas sobre Holocracia.
+
+## O que é Holocracia?
+
+Sistema de gestão organizacional que distribui autoridade através de PAPÉIS claros, não cargos hierárquicos tradicionais.
+
+## Princípios Fundamentais
+
+1. **Papéis, não cargos**: Pessoas preenchem múltiplos papéis dinâmicos
+2. **Círculos auto-organizados**: Times com autonomia decisória
+3. **Autoridade distribuída**: Decisão no nível do papel específico
+4. **Transparência radical**: Regras e processos explícitos
+
+## Como SISGEAD Premium Aplica Holocracia
+
+A IA deve:
+1. Analisar perfil DISC do usuário
+2. Considerar experiências e competências do questionário expandido
+3. **BUSCAR NA WEB** premissas atuais de Holocracia (Holacracy.org)
+4. Sugerir PAPÉIS adequados ao perfil + contexto organizacional
+5. Recomendar composição de círculos (equipes balanceadas)
+
+## Exemplo Multi-Tenant
+
+**Contexto**:
+- Instituição: Empresa XYZ
+- Organização: Departamento de TI
+- Perfil: Master com D alto + Experiência em liderança técnica
+
+**Papéis sugeridos** (baseado em Holocracia web + contexto institucional):
+- Lead Link do Círculo Institucional
+- Papel de Estratégia Organizacional Multi-Tenant
+- Facilitador de Governança entre Organizações
+
+## Diretivas para IA Premium
+
+Ao sugerir papéis/equipes multi-org, a IA DEVE:
+
+1. **Consultar fonte web** sobre Holocracia atual (Holacracy.org, artigos 2024-2025)
+2. **Mapear perfis DISC** para papéis holacráticos:
+   - D (Dominância)  Lead Links, papéis de tomada de decisão
+   - I (Influência)  Facilitadores, papéis de comunicação externa
+   - S (Estabilidade)  Papéis de suporte, processos contínuos
+   - C (Conformidade)  Papéis de qualidade, governança interna
+3. **Considerar hierarquia multi-tenant**:
+   - Masters  Papéis estratégicos institucionais
+   - OrgAdmins  Lead Links de círculos organizacionais
+   - Members  Papéis operacionais específicos
+4. **Sugerir círculos cross-org** quando adequado (projetos transversais)
+5. **Balancear** autoridade distribuída com isolamento de dados LGPD
+6. **Explicar razão** baseada em Holocracia + contexto institucional específico
+
+## Recursos Web para Consulta
+
+IA DEVE buscar automaticamente em:
+- **Holacracy.org** (fonte oficial, constituição v5.0+)
+- Artigos recentes 2024-2025 sobre implementação prática
+- Cases de sucesso em estruturas multi-tenant
+- Adaptações para organizações hierárquicas tradicionais
+- Holocracia no contexto corporativo brasileiro
+
+## Exemplo de Resposta Ideal
+
+"Com base no seu perfil DISC (D alto, I médio) e experiência em gestão de projetos, sugiro os seguintes papéis holacráticos (segundo Holacracy.org 2024):
+
+1. **Lead Link do Círculo de TI** - Sua dominância facilita decisões rápidas
+2. **Facilitador de Governança** - Equilibra autonomia com estrutura
+3. **Papel de Arquitetura de Soluções** - Combina expertise técnica com visão estratégica
+
+Para sua equipe, recomendo círculo balanceado:
+- 1 Lead Link (D alto) - você
+- 2 Papéis operacionais (S alto) - estabilidade de processos  
+- 1 Facilitador (I alto) - comunicação stakeholders
+- 1 Papel de qualidade (C alto) - governança interna
+
+Fonte: Holacracy Constitution v5.0 + Case Study XYZ Corp 2024"
+`,wordCount:250}}}async initialize(){this.initialized||(Object.values(this.WIKI_DOCS).forEach(t=>{this.documents.set(t.id,t),this.indexDocument(t)}),this.initialized=!0,console.log(`âœ… WikiService initialized with ${this.documents.size} documents`))}indexDocument(t){if(!t.aiContext)return;this.extractKeywords(t.content+" "+t.title+" "+t.tags.join(" ")).forEach(a=>{this.index.has(a)||this.index.set(a,new Set),this.index.get(a).add(t.id)})}extractKeywords(t){const r=t.toLowerCase().replace(/[^\w\sÃ¡Ã Ã¢Ã£Ã©Ã¨ÃªÃ­Ã¬Ã®Ã³Ã²Ã´ÃµÃºÃ¹Ã»Ã§]/g," ").replace(/\s+/g," ").trim(),a=new Set(["o","a","os","as","um","uma","de","do","da","dos","das","em","no","na","nos","nas","para","com","por","e","ou","que","se","Ã©","sÃ£o","como","quando","onde","qual","quais"]);return r.split(" ").filter(o=>o.length>2&&!a.has(o)).filter((o,s,u)=>u.indexOf(o)===s)}async search(t,r=3){await this.initialize();const a=this.extractKeywords(t),o=new Map;return a.forEach(u=>{const f=this.index.get(u);f&&f.forEach(m=>{o.set(m,(o.get(m)||0)+1)})}),Array.from(o.entries()).map(([u,f])=>{const m=this.documents.get(u);return{document:m,relevance:f/a.length,matchedSections:this.findMatchedSections(m,a)}}).sort((u,f)=>f.relevance-u.relevance).slice(0,r)}findMatchedSections(t,r){const a=[],o=t.content.split(`
+`);let s="";for(const u of o)u.startsWith("#")&&(s=u.replace(/^#+\s*/,"")),r.some(m=>u.toLowerCase().includes(m))&&s&&!a.includes(s)&&a.push(s);return a.slice(0,3)}async getDocument(t){return await this.initialize(),this.documents.get(t)||null}async getByCategory(t){return await this.initialize(),Array.from(this.documents.values()).filter(r=>r.category===t)}async getContextForAI(t){const r=await this.search(t,2);if(r.length===0)return"Nenhuma documentaÃ§Ã£o especÃ­fica encontrada para esta pergunta.";let a=`ðŸ“š DOCUMENTAÃ‡ÃƒO RELEVANTE:
 
 `;return r.forEach((o,s)=>{a+=`--- ${s+1}. ${o.document.title} (${Math.round(o.relevance*100)}% relevante) ---
 `,a+=o.document.content.substring(0,800),o.matchedSections.length>0&&(a+=`
 
-Seções relevantes: ${o.matchedSections.join(", ")}`),a+=`
+SeÃ§Ãµes relevantes: ${o.matchedSections.join(", ")}`),a+=`
 
 `}),a}async listAll(){return await this.initialize(),Array.from(this.documents.values())}}const RX=new MX,uO=()=>{const{isModalOpen:e,closeModal:t,conversationHistory:r,addMessage:a,clearHistory:o,currentUser:s,currentInstitution:u,currentOrganizations:f,aiProvider:m,aiModel:p}=qf(),{accessLevel:h,dataScope:g}=HI(),[y,S]=b.useState(""),[j,w]=b.useState(!1),A=b.useRef(null),N=b.useRef(new Map),C=b.useRef(0),O=b.useRef(0),P=()=>{var Y;(Y=A.current)==null||Y.scrollIntoView({behavior:"smooth"})};b.useEffect(()=>{P()},[r]),b.useEffect(()=>{if(e&&r.length===0){const Y=D();a({role:"assistant",content:Y})}},[e]);const D=()=>{switch(h){case"master":return`👑 **Assistente Master IA - Visão Institucional**
 
