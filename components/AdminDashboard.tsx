@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { type AuditRecord, type TeamProposal, type TeamComposition, type AiProvider, type AiStatus } from '../types';
 import { CsvIcon, TrashIcon, InfoIcon, LightBulbIcon, PdfIcon, UsersIcon, CollectionIcon, ClipboardListIcon, ChartIcon, UploadIcon, CsvIcon as CsvIcon2, ShieldCheckIcon } from './icons';
 import { StructuredTooltip } from './Tooltip';
+import { GlobalAIAssistant } from './GlobalAIAssistant';
 import VersionMigration from './VersionMigration';
 
 // Ícone para configurações
@@ -523,6 +524,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = (props) => {
             <main className="flex-grow">
                 {renderView()}
             </main>
+
+            {/* Assistente IA Global - Disponível em todas as abas */}
+            <GlobalAIAssistant
+                currentMembers={[]}
+                allCandidates={auditLog}
+                proposalLog={proposalLog}
+                updateProposalLog={updateProposalLog}
+                provider={aiProvider}
+                projectObjective="Otimizar formação de equipes de alto rendimento"
+            />
             
             <footer className="text-center pt-8 mt-auto border-t border-slate-200">
                 <div className="text-xs text-slate-500">
