@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { wikiService } from '../services/wikiService';
 import { getContextualTeamAdvice } from '../services/geminiService';
 import { type AuditRecord, type GeminiModel, type TeamProposal, type AiAdviceResponse, type AiProvider } from '../types';
-import { SparklesIcon, ExternalLinkIcon, PrintIcon } from './icons';
+import { AiChipIcon, ExternalLinkIcon, PrintIcon } from './icons';
 import { generateProposalId } from '../utils/helpers';
 import { usePrint } from '../utils/hooks/usePrint';
 
@@ -105,7 +105,7 @@ export const GlobalAIAssistant: React.FC<GlobalAIAssistantProps> = ({
                     className="flex items-center gap-2 px-6 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full shadow-2xl hover:shadow-purple-500/50 hover:scale-105 transform transition-all duration-300 font-semibold"
                     title="Assistente IA - Disponível em todas as abas"
                 >
-                    <SparklesIcon />
+                    <AiChipIcon />
                     <span>Assistente IA</span>
                     <span className="text-xs bg-white/20 px-2 py-1 rounded-full">24/7</span>
                 </button>
@@ -117,7 +117,7 @@ export const GlobalAIAssistant: React.FC<GlobalAIAssistantProps> = ({
                     {/* Header */}
                     <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 rounded-t-2xl flex justify-between items-center">
                         <div className="flex items-center gap-2">
-                            <SparklesIcon />
+                            <AiChipIcon />
                             <h4 className="font-bold">Assistente IA Global</h4>
                         </div>
                         <button
