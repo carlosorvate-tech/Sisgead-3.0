@@ -8,7 +8,7 @@ import { authService, institutionService, organizationService, userService } fro
 import type { User, UserRole } from '../../types/premium/user';
 import type { Institution } from '../../types/premium/institution';
 import type { Organization } from '../../types/premium/organization';
-import { CreateOrganizationModal, CreateUserModal } from './modals';
+import { CreateOrganizationModal, CreateUserModal, EditOrganizationModal, EditUserModal } from './modals';
 import { InstitutionConsolidationView } from './consolidation/InstitutionConsolidationView';
 import { AIAssistantModal } from './modals/AIAssistantModal';
 
@@ -45,7 +45,11 @@ export const MasterDashboard: React.FC = () => {
   // Estados dos modais
   const [showCreateOrgModal, setShowCreateOrgModal] = useState(false);
   const [showCreateUserModal, setShowCreateUserModal] = useState(false);
+  const [showEditOrgModal, setShowEditOrgModal] = useState(false);
+  const [showEditUserModal, setShowEditUserModal] = useState(false);
   const [showAIAssistant, setShowAIAssistant] = useState(false);
+  const [selectedOrg, setSelectedOrg] = useState<Organization | null>(null);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [consolidationData, setConsolidationData] = useState<any>(null);
 
   useEffect(() => {
@@ -417,7 +421,10 @@ export const MasterDashboard: React.FC = () => {
             <div className="px-6 py-4 border-b border-gray-200">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold text-gray-900">Organizações da Instituição</h2>
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                <button 
+                  onClick={() => setShowCreateOrgModal(true)}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                >
                   + Nova Organização
                 </button>
               </div>
@@ -465,6 +472,18 @@ export const MasterDashboard: React.FC = () => {
                         </div>
                       </div>
                       <div className="flex items-center space-x-3">
+                        <button
+                          onClick={() => {
+                            setSelectedOrg(org);
+                            setShowEditOrgModal(true);
+                          }}
+                          className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-100 transition-colors flex items-center"
+                        >
+                          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                          </svg>
+                          Editar
+                        </button>
                         <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                           org.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
                         }`}>
@@ -484,7 +503,10 @@ export const MasterDashboard: React.FC = () => {
             <div className="px-6 py-4 border-b border-gray-200">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold text-gray-900">Usuários da Instituição</h2>
-                <button className="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors">
+                <button 
+                  onClick={() => setShowCreateUserModal(true)}
+                  className="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"
+                >
                   + Novo Usuário
                 </button>
               </div>
@@ -540,6 +562,18 @@ export const MasterDashboard: React.FC = () => {
                         </div>
                       </div>
                       <div className="flex items-center space-x-3">
+                        <button
+                          onClick={() => {
+                            setSelectedUser(user);
+                            setShowEditUserModal(true);
+                          }}
+                          className="px-3 py-1.5 bg-green-50 text-green-700 rounded-lg text-sm font-medium hover:bg-green-100 transition-colors flex items-center"
+                        >
+                          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                          </svg>
+                          Editar
+                        </button>
                         <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
                           user.role === 'master' ? 'bg-purple-100 text-purple-800' :
                           user.role === 'org_admin' ? 'bg-blue-100 text-blue-800' :
@@ -612,6 +646,37 @@ export const MasterDashboard: React.FC = () => {
           onSuccess={() => {
             setShowCreateUserModal(false);
             loadData(); // Recarregar dados após criar usuário
+          }}
+        />
+      )}
+      
+      {/* Modais de Edição */}
+      {showEditOrgModal && selectedOrg && (
+        <EditOrganizationModal
+          organization={selectedOrg}
+          onClose={() => {
+            setShowEditOrgModal(false);
+            setSelectedOrg(null);
+          }}
+          onSuccess={(updatedOrg) => {
+            setShowEditOrgModal(false);
+            setSelectedOrg(null);
+            loadData(); // Recarregar dados após editar
+          }}
+        />
+      )}
+      
+      {showEditUserModal && selectedUser && (
+        <EditUserModal
+          user={selectedUser}
+          onClose={() => {
+            setShowEditUserModal(false);
+            setSelectedUser(null);
+          }}
+          onSuccess={(updatedUser) => {
+            setShowEditUserModal(false);
+            setSelectedUser(null);
+            loadData(); // Recarregar dados após editar
           }}
         />
       )}
