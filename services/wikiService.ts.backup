@@ -1,0 +1,538 @@
+/**
+ * WikiService - Sistema de Base de Conhecimento para IA
+ * 
+ * Responsável por:
+ * - Carregar documentação do Wiki
+ * - Indexar conteúdo para busca semântica
+ * - Fornecer contexto para IA Assistant
+ * - Buscar respostas em documentação
+ */
+
+export interface WikiDocument {
+  id: string;
+  title: string;
+  category: string;
+  tags: string[];
+  version: string;
+  lastUpdate: string;
+  author: string;
+  aiContext: boolean;
+  difficulty: 'básico' | 'intermediário' | 'avançado';
+  content: string;
+  path: string;
+  wordCount: number;
+}
+
+export interface WikiSearchResult {
+  document: WikiDocument;
+  relevance: number;
+  matchedSections: string[];
+}
+
+class WikiService {
+  private documents: Map<string, WikiDocument> = new Map();
+  private index: Map<string, Set<string>> = new Map(); // keyword -> document IDs
+  private initialized = false;
+
+  /**
+   * Base de documentação estática (será carregada dinamicamente em produção)
+   */
+  private readonly WIKI_DOCS = {
+    'guia-administrador': {
+      id: 'guia-administrador',
+      title: 'Guia do Administrador SISGEAD 3.0',
+      category: 'guias-admin',
+      tags: ['administrador', 'gestão', 'master', 'organizações'],
+      version: '3.0.0',
+      lastUpdate: '2025-11-06',
+      author: 'Sistema',
+      aiContext: true,
+      difficulty: 'intermediário' as const,
+      path: '/wiki/02-guias-administrador/guia-administrador.md',
+      content: `
+# Guia do Administrador SISGEAD 3.0
+
+## Níveis de Acesso
+
+### Master (Institucional)
+Permissões completas: gerenciar todas organizações, todos usuários, redefinir senhas, acesso a dados consolidados, IA institucional.
+
+### OrgAdmin (Organizacional)
+Permissões limitadas: gerenciar apenas sua organização, criar/editar usuários da org, IA organizacional.
+
+### Member (Membro)
+Permissões básicas: fazer avaliações, visualizar próprio perfil, IA pessoal.
+
+## Gestão de Organizações
+
+### Criar Nova Organização
+Dashboard Master → Organizações → "+ Nova Organização"
+
+Campos: Nome, Status (Ativa/Inativa/Suspensa), Máx Usuários (padrão: 50), Features (Avaliações, Relatórios, Analytics, Team Builder, IA), Aprovação de Avaliações.
+
+### Editar Organização
+Lista → Editar → Alterar dados, configurações, ou EXCLUIR (irreversível).
+
+## Gestão de Usuários
+
+### Criar Novo Usuário
+Dashboard → Usuários → "+ Novo Usuário"
+
+Dados: Nome, Email (login único), Telefone (opcional), Departamento, Role (Member/OrgAdmin/Master), Organizações, Status.
+
+Senha inicial: Sisgead@2024 (usuário DEVE trocar no primeiro login).
+
+### Editar Usuário
+
+1. Alterar Dados: Nome, email, telefone, departamento, organizações, role.
+
+2. Redefinir Senha:
+   - Quando: Usuário esqueceu senha, conta bloqueada, reset de segurança
+   - Como: Botão "Redefinir Senha" → Senha volta para Sisgead@2024
+   - Efeito: Força criação de nova senha, remove bloqueio
+
+3. Excluir Usuário:
+   - Irreversível: Remove TODOS os dados
+   - Uso: Funcionário desligado, conta duplicada
+
+## Sistema de Senhas
+
+Senha Padrão: Sisgead@2024
+Usado em: Novos usuários, reset de senha
+
+Política:
+- Mínimo 8 caracteres
+- 1 maiúscula, 1 minúscula, 1 número, 1 especial
+- Bloqueio após 5 tentativas falhadas
+- Admin desbloqueia via "Redefinir Senha"
+
+### Fluxos Comuns
+
+Novo Usuário:
+1. Admin cria → Senha padrão
+2. Usuário recebe email
+3. Primeiro login → Pede nova senha
+4. Cria senha forte → Acesso liberado
+
+Esqueceu Senha:
+1. Usuário falha login
+2. Contacta admin
+3. Admin "Redefinir Senha"
+4. Volta para padrão
+5. Usuário cria nova
+
+Conta Bloqueada:
+1. Errou 5x → Bloqueio
+2. Admin "Redefinir Senha"
+3. Bloqueio removido
+4. Senha padrão
+5. Usuário cria nova
+
+## IA Assistant
+
+Botão Flutuante: Canto inferior direito
+- Master: Roxo com 👑
+- OrgAdmin: Azul com 👔
+- Member: Verde com 👤
+
+Quick Actions (Master):
+- Visão Institucional
+- Comparar Organizações
+- Mapeamento de Talentos
+- Insights Estratégicos
+
+Exemplos de Perguntas:
+- "Quantos usuários ativos?"
+- "Quais organizações inativas?"
+- "Como redefinir senha?"
+- "Distribuição de perfis DISC?"
+
+## Troubleshooting
+
+Usuário não loga:
+→ Editar Usuário → Redefinir Senha
+
+Organização não aparece:
+→ Editar Usuário → Organizações → Marcar → Salvar
+
+IA não aparece:
+→ Verificar feature "ai-assistant" na org
+      `,
+      wordCount: 450
+    },
+
+    'sistema-senhas': {
+      id: 'sistema-senhas',
+      title: 'Sistema de Gerenciamento de Senhas',
+      category: 'guias-admin',
+      tags: ['senha', 'segurança', 'reset', 'bloqueio'],
+      version: '3.0.0',
+      lastUpdate: '2025-11-06',
+      author: 'Sistema',
+      aiContext: true,
+      difficulty: 'básico' as const,
+      path: '/wiki/02-guias-administrador/sistema-senhas.md',
+      content: `
+# Sistema de Senhas SISGEAD 3.0
+
+## Senha Padrão
+
+Senha: Sisgead@2024
+
+Quando é usada:
+- Criação de novos usuários
+- Reset de senha por administrador
+- Recuperação de conta bloqueada
+
+Segurança:
+- Usuário NÃO pode manter senha padrão
+- Sistema FORÇA troca no primeiro login
+- Campo requirePasswordChange: true
+
+## Política de Senhas
+
+Requisitos obrigatórios:
+✓ Mínimo 8 caracteres
+✓ Pelo menos 1 letra maiúscula
+✓ Pelo menos 1 letra minúscula
+✓ Pelo menos 1 número
+✓ Pelo menos 1 caractere especial (@, #, $, %, etc.)
+
+Bloqueio automático:
+- Após 5 tentativas falhadas de login
+- Admin pode desbloquear via "Redefinir Senha"
+
+## Redefinir Senha (Admin)
+
+Acesso: Editar Usuário → Botão "Redefinir Senha" (amarelo)
+
+O que acontece:
+1. Senha volta para Sisgead@2024
+2. requirePasswordChange = true (força nova senha)
+3. failedLoginAttempts = 0 (limpa tentativas)
+4. isLocked = false (desbloqueia conta)
+
+Quando usar:
+- Usuário esqueceu a senha
+- Conta bloqueada por tentativas falhadas
+- Reset de segurança (suspeita de comprometimento)
+
+## Fluxos Completos
+
+### Novo Usuário
+1. Admin cria usuário
+2. Sistema define senha = Sisgead@2024
+3. requirePasswordChange = true
+4. Usuário recebe credenciais
+5. Primeiro login detecta requirePasswordChange
+6. Formulário de nova senha aparece
+7. Usuário cria senha forte
+8. requirePasswordChange = false
+9. Login normal liberado
+
+### Usuário Esqueceu Senha
+1. Usuário tenta logar e falha
+2. Usuário contacta administrador
+3. Admin acessa: Dashboard → Usuários → Editar Usuário
+4. Admin clica "Redefinir Senha"
+5. Modal de confirmação aparece
+6. Admin confirma
+7. Sistema reseta senha para Sisgead@2024
+8. Admin informa usuário da senha temporária
+9. Usuário faz login com Sisgead@2024
+10. Sistema força criação de nova senha
+11. Acesso liberado
+
+### Conta Bloqueada
+1. Usuário erra senha 5 vezes
+2. Sistema bloqueia: isLocked = true
+3. Mensagem: "Conta bloqueada. Contacte administrador"
+4. Usuário contacta admin
+5. Admin: Editar Usuário → Redefinir Senha
+6. Sistema automaticamente:
+   - isLocked = false
+   - failedLoginAttempts = 0
+   - senha = Sisgead@2024
+   - requirePasswordChange = true
+7. Admin informa usuário
+8. Usuário loga e cria nova senha
+
+## Boas Práticas
+
+Para Administradores:
+✓ Sempre informe o usuário após redefinir senha
+✓ Peça confirmação de identidade antes de resetar
+✓ Documente resets frequentes (pode indicar problema)
+✓ Oriente sobre política de senhas fortes
+
+Para Usuários:
+✓ Use gerenciador de senhas (LastPass, 1Password)
+✓ Nunca compartilhe senha
+✓ Troque regularmente (sugestão: 90 dias)
+✓ Use senhas diferentes por sistema
+
+## Segurança Técnica
+
+Hash de Senha:
+- Algoritmo: bcrypt (cost factor 10)
+- Salt automático
+- Nunca armazenada em plain text
+
+Validação:
+- Frontend: Regex para requisitos
+- Backend: bcrypt.compare() para verificação
+- Timeout: 3 segundos para prevenir timing attacks
+
+Auditoria:
+- lastPasswordChange registrado
+- failedLoginAttempts incrementado
+- isLocked quando ≥ 5 tentativas
+      `,
+      wordCount: 380
+    },
+
+    'arquitetura-ia-dual': {
+      id: 'arquitetura-ia-dual',
+      title: 'Arquitetura IA Dual-Level',
+      category: 'arquitetura',
+      tags: ['ia', 'arquitetura', 'gemini', 'contexto'],
+      version: '3.0.0',
+      lastUpdate: '2025-11-06',
+      author: 'Sistema',
+      aiContext: true,
+      difficulty: 'avançado' as const,
+      path: '/wiki/03-arquitetura/arquitetura-ia-dual-level.md',
+      content: `
+# Arquitetura IA Dual-Level
+
+## Conceito
+
+Sistema de IA com dois níveis de contexto:
+
+1. Institucional (Master/OrgAdmin)
+   - Acesso a TODOS os dados da instituição
+   - Análise cross-org
+   - Insights estratégicos
+
+2. Organizacional (OrgAdmin/Member)
+   - Acesso a dados de UMA organização
+   - Análise isolada
+   - Workspace v2.0 dedicado
+
+## Componentes
+
+AIContext:
+- Provedor global de estado
+- useAI() hook
+- useAIAccess() hook
+- Gerencia conversação e contexto
+
+AIFloatingButton:
+- Adaptativo por role
+- Master: Roxo 👑
+- OrgAdmin: Azul 👔
+- Member: Verde 👤
+
+UnifiedAIModal:
+- Interface contextual
+- Quick actions por role
+- Histórico de conversação
+
+## Contexto Data
+
+Master vê:
+- currentInstitution
+- allOrganizations[]
+- allUsers[]
+- consolidatedAssessments[]
+
+OrgAdmin vê:
+- currentOrganization
+- orgUsers[]
+- orgAssessments[]
+
+Member vê:
+- currentUser
+- ownAssessments[]
+
+## Integração Gemini
+
+geminiService.ts (v2.0):
+- Cloudflare Worker proxy
+- Mock mode fallback
+- GoogleGenAI SDK
+
+PremiumAIService (futuro):
+- queryInstitutional()
+- queryOrganizational()
+- queryPersonal()
+      `,
+      wordCount: 180
+    }
+  };
+
+  /**
+   * Inicializar serviço (carregar docs)
+   */
+  async initialize(): Promise<void> {
+    if (this.initialized) return;
+
+    // Carregar documentos da base estática
+    Object.values(this.WIKI_DOCS).forEach(doc => {
+      this.documents.set(doc.id, doc);
+      this.indexDocument(doc);
+    });
+
+    this.initialized = true;
+    console.log(`✅ WikiService initialized with ${this.documents.size} documents`);
+  }
+
+  /**
+   * Indexar documento para busca
+   */
+  private indexDocument(doc: WikiDocument): void {
+    if (!doc.aiContext) return; // Só indexa docs marcados para IA
+
+    // Extrair keywords do conteúdo
+    const keywords = this.extractKeywords(doc.content + ' ' + doc.title + ' ' + doc.tags.join(' '));
+    
+    keywords.forEach(keyword => {
+      if (!this.index.has(keyword)) {
+        this.index.set(keyword, new Set());
+      }
+      this.index.get(keyword)!.add(doc.id);
+    });
+  }
+
+  /**
+   * Extrair keywords relevantes do texto
+   */
+  private extractKeywords(text: string): string[] {
+    // Normalizar texto
+    const normalized = text.toLowerCase()
+      .replace(/[^\w\sáàâãéèêíìîóòôõúùûç]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    // Palavras stop (ignorar)
+    const stopWords = new Set([
+      'o', 'a', 'os', 'as', 'um', 'uma', 'de', 'do', 'da', 'dos', 'das',
+      'em', 'no', 'na', 'nos', 'nas', 'para', 'com', 'por', 'e', 'ou',
+      'que', 'se', 'é', 'são', 'como', 'quando', 'onde', 'qual', 'quais'
+    ]);
+
+    // Split e filtrar
+    return normalized
+      .split(' ')
+      .filter(word => word.length > 2 && !stopWords.has(word))
+      .filter((word, index, arr) => arr.indexOf(word) === index); // Unique
+  }
+
+  /**
+   * Buscar documentos relevantes
+   */
+  async search(query: string, limit: number = 3): Promise<WikiSearchResult[]> {
+    await this.initialize();
+
+    const queryKeywords = this.extractKeywords(query);
+    const scores = new Map<string, number>();
+
+    // Calcular score de relevância para cada documento
+    queryKeywords.forEach(keyword => {
+      const matchingDocs = this.index.get(keyword);
+      if (matchingDocs) {
+        matchingDocs.forEach(docId => {
+          scores.set(docId, (scores.get(docId) || 0) + 1);
+        });
+      }
+    });
+
+    // Ordenar por relevância
+    const results: WikiSearchResult[] = Array.from(scores.entries())
+      .map(([docId, score]) => {
+        const doc = this.documents.get(docId)!;
+        return {
+          document: doc,
+          relevance: score / queryKeywords.length,
+          matchedSections: this.findMatchedSections(doc, queryKeywords)
+        };
+      })
+      .sort((a, b) => b.relevance - a.relevance)
+      .slice(0, limit);
+
+    return results;
+  }
+
+  /**
+   * Encontrar seções do documento que contêm keywords
+   */
+  private findMatchedSections(doc: WikiDocument, keywords: string[]): string[] {
+    const sections: string[] = [];
+    const lines = doc.content.split('\n');
+    
+    let currentSection = '';
+    for (const line of lines) {
+      if (line.startsWith('#')) {
+        currentSection = line.replace(/^#+\s*/, '');
+      }
+      
+      const hasMatch = keywords.some(kw => line.toLowerCase().includes(kw));
+      if (hasMatch && currentSection && !sections.includes(currentSection)) {
+        sections.push(currentSection);
+      }
+    }
+
+    return sections.slice(0, 3); // Máximo 3 seções
+  }
+
+  /**
+   * Obter documento por ID
+   */
+  async getDocument(id: string): Promise<WikiDocument | null> {
+    await this.initialize();
+    return this.documents.get(id) || null;
+  }
+
+  /**
+   * Obter todos os documentos de uma categoria
+   */
+  async getByCategory(category: string): Promise<WikiDocument[]> {
+    await this.initialize();
+    return Array.from(this.documents.values())
+      .filter(doc => doc.category === category);
+  }
+
+  /**
+   * Gerar contexto para IA baseado em query
+   */
+  async getContextForAI(query: string): Promise<string> {
+    const results = await this.search(query, 2); // Top 2 docs mais relevantes
+
+    if (results.length === 0) {
+      return 'Nenhuma documentação específica encontrada para esta pergunta.';
+    }
+
+    let context = '📚 DOCUMENTAÇÃO RELEVANTE:\n\n';
+    
+    results.forEach((result, index) => {
+      context += `--- ${index + 1}. ${result.document.title} (${Math.round(result.relevance * 100)}% relevante) ---\n`;
+      context += result.document.content.substring(0, 800); // Primeiros 800 chars
+      if (result.matchedSections.length > 0) {
+        context += `\n\nSeções relevantes: ${result.matchedSections.join(', ')}`;
+      }
+      context += '\n\n';
+    });
+
+    return context;
+  }
+
+  /**
+   * Listar todos os documentos (para debug)
+   */
+  async listAll(): Promise<WikiDocument[]> {
+    await this.initialize();
+    return Array.from(this.documents.values());
+  }
+}
+
+export const wikiService = new WikiService();

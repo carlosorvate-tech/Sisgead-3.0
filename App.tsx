@@ -32,6 +32,9 @@ import { SetupWizard } from './components/premium/SetupWizard';
 import MasterDashboard from './components/premium/MasterDashboard';
 import { PremiumLogin } from './components/premium/PremiumLogin';
 import { authService } from './services/premium';
+// AI Context
+import { AIProvider } from './src/contexts/AIContext';
+import UnifiedAIModal from './components/shared/UnifiedAIModal';
 
 export default function App() {
   const [selectedVersion, setSelectedVersion] = useState<'standard' | 'premium' | null>(null);
@@ -434,9 +437,12 @@ A aplicação iniciará com um estado limpo para evitar problemas. Verifique o c
   // Premium Dashboard for authenticated users
   if (selectedVersion === 'premium' && isAuthenticated) {
     return (
-      <SmartHintsProvider>
-        <MasterDashboard />
-      </SmartHintsProvider>
+      <AIProvider>
+        <SmartHintsProvider>
+          <MasterDashboard />
+        </SmartHintsProvider>
+        <UnifiedAIModal />
+      </AIProvider>
     );
   }
 
@@ -494,13 +500,16 @@ A aplicação iniciará com um estado limpo para evitar problemas. Verifique o c
 
   // Fallback (shouldn't reach here)
   return (
-    <SmartHintsProvider>
-      <MainLayout>
-        <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
-          <p className="text-lg text-brand-secondary">Carregando aplicação...</p>
-        </div>
-      </MainLayout>
-    </SmartHintsProvider>
+    <AIProvider>
+      <SmartHintsProvider>
+        <MainLayout>
+          <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+            <p className="text-lg text-brand-secondary">Carregando aplicação...</p>
+          </div>
+        </MainLayout>
+        <UnifiedAIModal />
+      </SmartHintsProvider>
+    </AIProvider>
   );
 }
 // bycao (ogrorvatigão) 2025

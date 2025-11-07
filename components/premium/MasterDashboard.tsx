@@ -11,6 +11,9 @@ import type { Organization } from '../../types/premium/organization';
 import { CreateOrganizationModal, CreateUserModal, EditOrganizationModal, EditUserModal } from './modals';
 import { InstitutionConsolidationView } from './consolidation/InstitutionConsolidationView';
 import { AIAssistantModal } from './modals/AIAssistantModal';
+import { useAI } from '../../src/contexts/AIContext';
+import AIFloatingButton from '../shared/AIFloatingButton';
+import DeleteConfirmationModal from '../shared/DeleteConfirmationModal';
 
 interface DashboardMetrics {
   totalUsers: number;
@@ -42,15 +45,21 @@ export const MasterDashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'organizations' | 'users' | 'activity' | 'consolidation'>('overview');
   
+  // AI Context
+  const { setCurrentUser: setAIUser, setCurrentInstitution: setAIInstitution, setCurrentOrganizations: setAIOrganizations } = useAI();
+  
   // Estados dos modais
   const [showCreateOrgModal, setShowCreateOrgModal] = useState(false);
   const [showCreateUserModal, setShowCreateUserModal] = useState(false);
   const [showEditOrgModal, setShowEditOrgModal] = useState(false);
   const [showEditUserModal, setShowEditUserModal] = useState(false);
+  const [showDeleteOrgModal, setShowDeleteOrgModal] = useState(false);
+  const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
   const [showAIAssistant, setShowAIAssistant] = useState(false);
   const [selectedOrg, setSelectedOrg] = useState<Organization | null>(null);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [consolidationData, setConsolidationData] = useState<any>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -83,6 +92,11 @@ export const MasterDashboard: React.FC = () => {
       
       setUsers(usersData);
 
+      // Sincronizar com AI Context
+      setAIUser(user);
+      setAIInstitution(inst);
+      setAIOrganizations(orgs);
+
       // Calcular métricas
       calculateMetrics(usersData, orgs);
     } catch (error) {
@@ -112,6 +126,42 @@ export const MasterDashboard: React.FC = () => {
   const handleLogout = () => {
     authService.logout();
     window.location.reload();
+  };
+
+  const handleDeleteOrganization = async () => {
+    if (!selectedOrg) return;
+    
+    setIsDeleting(true);
+    try {
+      const result = await organizationService.delete(selectedOrg.id);
+      if (result.success) {
+        setShowDeleteOrgModal(false);
+        setSelectedOrg(null);
+        await loadData(); // Recarregar dados
+      } else {
+        alert(`Erro ao excluir: ${result.error}`);
+      }
+    } catch (error) {
+      alert(`Erro ao excluir organização: ${error instanceof Error ? error.message : 'Erro desconhecido'}`);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    if (!selectedUser) return;
+    
+    setIsDeleting(true);
+    try {
+      await userService.delete(selectedUser.id);
+      setShowDeleteUserModal(false);
+      setSelectedUser(null);
+      await loadData(); // Recarregar dados
+    } catch (error) {
+      alert(`Erro ao excluir usuário: ${error instanceof Error ? error.message : 'Erro desconhecido'}`);
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const handleSwitchToStandard = () => {
@@ -691,18 +741,8 @@ export const MasterDashboard: React.FC = () => {
         />
       )}
       
-      {/* Botão Flutuante de Assistente de IA */}
-      <button
-        onClick={() => setShowAIAssistant(true)}
-        className="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-r from-purple-600 to-indigo-700 text-white rounded-full shadow-2xl hover:shadow-purple-500/50 hover:scale-110 transition-all duration-300 flex items-center justify-center group z-40"
-        title="Assistente de IA - Gestão de Pessoas"
-      >
-        <span className="text-3xl">🤖</span>
-        <div className="absolute -top-12 right-0 bg-gray-900 text-white px-4 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-          Assistente de IA
-          <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-900"></div>
-        </div>
-      </button>
+      {/* Botão Flutuante Universal de IA */}
+      <AIFloatingButton />
     </div>
   );
 };

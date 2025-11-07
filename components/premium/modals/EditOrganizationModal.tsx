@@ -19,6 +19,27 @@ export function EditOrganizationModal({ organization, onClose, onSuccess }: Edit
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    try {
+      const result = await organizationService.delete(organization.id);
+      if (result.success) {
+        alert('Organização excluída com sucesso!');
+        onClose();
+        window.location.reload(); // Recarregar para atualizar a lista
+      } else {
+        throw new Error(result.error || 'Erro ao excluir organização');
+      }
+    } catch (err) {
+      alert(`Erro: ${err instanceof Error ? err.message : 'Erro ao excluir'}`);
+      setShowDeleteConfirm(false);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -259,36 +280,101 @@ export function EditOrganizationModal({ organization, onClose, onSuccess }: Edit
           </div>
 
           {/* Actions */}
-          <div className="flex justify-end space-x-3 pt-4 border-t">
+          <div className="flex justify-between items-center pt-4 border-t">
             <button
               type="button"
-              onClick={onClose}
-              className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors"
-              disabled={loading}
+              onClick={() => setShowDeleteConfirm(true)}
+              className="px-6 py-2 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 font-medium transition-colors flex items-center border border-red-200"
+              disabled={loading || isDeleting}
             >
-              Cancelar
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+              Excluir Organização
             </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center"
-            >
-              {loading ? (
-                <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                  Salvando...
-                </>
-              ) : (
-                <>
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Salvar Alterações
-                </>
-              )}
-            </button>
+            
+            <div className="flex space-x-3">
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors"
+                disabled={loading || isDeleting}
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                disabled={loading || isDeleting}
+                className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center"
+              >
+                {loading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Salvando...
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Salvar Alterações
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </form>
+
+        {/* Modal de Confirmação de Exclusão */}
+        {showDeleteConfirm && (
+          <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+              <div className="flex items-center mb-4">
+                <div className="text-4xl mr-4">⚠️</div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900">Confirmar Exclusão</h3>
+                  <p className="text-sm text-gray-600">Esta ação não pode ser desfeita</p>
+                </div>
+              </div>
+              
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                <p className="text-sm text-red-800 mb-2">
+                  Você está prestes a excluir a organização:
+                </p>
+                <p className="font-bold text-red-900">{organization.name}</p>
+                <p className="text-xs text-red-700 mt-2">
+                  • Todos os dados desta organização serão removidos<br />
+                  • Membros perderão acesso aos recursos<br />
+                  • Avaliações e relatórios serão deletados
+                </p>
+              </div>
+
+              <div className="flex space-x-3">
+                <button
+                  onClick={() => setShowDeleteConfirm(false)}
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium"
+                  disabled={isDeleting}
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium disabled:bg-gray-400 flex items-center justify-center"
+                  disabled={isDeleting}
+                >
+                  {isDeleting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Excluindo...
+                    </>
+                  ) : (
+                    'Excluir Definitivamente'
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

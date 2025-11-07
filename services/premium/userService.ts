@@ -24,6 +24,7 @@ import { organizationService } from './organizationService';
 
 class UserService {
   private readonly STORAGE_KEY = 'premium-users';
+  private readonly DEFAULT_PASSWORD = 'Sisgead@2024'; // Senha padrão inicial
 
   /**
    * Criar novo usuário
@@ -260,6 +261,41 @@ class UserService {
 
     for (const orgId of user.organizationIds) {
       await organizationService.updateStats(orgId);
+    }
+  }
+
+  /**
+   * Redefinir senha para padrão
+   */
+  async resetPassword(userId: string): Promise<void> {
+    const user = await this.getById(userId);
+    if (!user) throw new Error('Usuário não encontrado');
+    if (!this.canModifyUser(user)) throw new Error('Sem permissão');
+
+    const currentUser = authService.getCurrentUser();
+    if (!currentUser) throw new Error('Usuário atual não encontrado');
+
+    // Hash da senha padrão
+    const passwordHash = await this.hashPassword(this.DEFAULT_PASSWORD);
+
+    // Atualizar senha e forçar troca no próximo login
+    const now = new Date().toISOString();
+    user.security = {
+      ...user.security,
+      passwordHash,
+      lastPasswordChange: now,
+      requirePasswordChange: true, // Força o usuário a criar nova senha
+      failedLoginAttempts: 0,
+      isLocked: false
+    };
+    user.updatedAt = now;
+    user.updatedBy = currentUser.id;
+
+    const users = await this.getAll();
+    const index = users.findIndex(u => u.id === userId);
+    if (index !== -1) {
+      users[index] = user;
+      this.saveAll(users);
     }
   }
 

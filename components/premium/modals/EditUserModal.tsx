@@ -24,6 +24,38 @@ export function EditUserModal({ user, onClose, onSuccess }: EditUserModalProps) 
   const [loading, setLoading] = useState(false);
   const [loadingOrgs, setLoadingOrgs] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showResetPasswordConfirm, setShowResetPasswordConfirm] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isResettingPassword, setIsResettingPassword] = useState(false);
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    try {
+      await userService.delete(user.id);
+      alert('Usuário excluído com sucesso!');
+      onClose();
+      window.location.reload();
+    } catch (err) {
+      alert(`Erro: ${err instanceof Error ? err.message : 'Erro ao excluir'}`);
+      setShowDeleteConfirm(false);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  const handleResetPassword = async () => {
+    setIsResettingPassword(true);
+    try {
+      await userService.resetPassword(user.id);
+      alert('Senha redefinida para padrão com sucesso!\nO usuário poderá fazer login com a senha padrão e criar uma nova.');
+      setShowResetPasswordConfirm(false);
+    } catch (err) {
+      alert(`Erro: ${err instanceof Error ? err.message : 'Erro ao redefinir senha'}`);
+    } finally {
+      setIsResettingPassword(false);
+    }
+  };
 
   useEffect(() => {
     loadOrganizations();
@@ -220,36 +252,165 @@ export function EditUserModal({ user, onClose, onSuccess }: EditUserModalProps) 
             </div>
           </div>
 
-          <div className="flex justify-end space-x-3 pt-4 border-t">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
-              disabled={loading}
-            >
-              Cancelar
-            </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 flex items-center"
-            >
-              {loading ? (
-                <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                  Salvando...
-                </>
-              ) : (
-                <>
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Salvar
-                </>
-              )}
-            </button>
+          <div className="flex justify-between items-center pt-4 border-t">
+            <div className="flex space-x-3">
+              <button
+                type="button"
+                onClick={() => setShowResetPasswordConfirm(true)}
+                className="px-4 py-2 bg-yellow-50 text-yellow-700 rounded-lg hover:bg-yellow-100 font-medium transition-colors flex items-center border border-yellow-200"
+                disabled={loading || isDeleting || isResettingPassword}
+              >
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                </svg>
+                Redefinir Senha
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowDeleteConfirm(true)}
+                className="px-4 py-2 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 font-medium transition-colors flex items-center border border-red-200"
+                disabled={loading || isDeleting || isResettingPassword}
+              >
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                Excluir Usuário
+              </button>
+            </div>
+
+            <div className="flex space-x-3">
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                disabled={loading || isDeleting || isResettingPassword}
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                disabled={loading || isDeleting || isResettingPassword}
+                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 flex items-center"
+              >
+                {loading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Salvando...
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Salvar
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </form>
+
+        {/* Modal de Confirmação de Exclusão */}
+        {showDeleteConfirm && (
+          <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+              <div className="flex items-center mb-4">
+                <div className="text-4xl mr-4">⚠️</div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900">Confirmar Exclusão</h3>
+                  <p className="text-sm text-gray-600">Esta ação não pode ser desfeita</p>
+                </div>
+              </div>
+              
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                <p className="text-sm text-red-800 mb-2">
+                  Você está prestes a excluir o usuário:
+                </p>
+                <p className="font-bold text-red-900">{user.profile.name}</p>
+                <p className="text-sm text-red-700 mt-1">{user.profile.email}</p>
+                <p className="text-xs text-red-700 mt-2">
+                  • Todos os dados do usuário serão removidos<br />
+                  • Acesso será revogado imediatamente<br />
+                  • Avaliações e histórico serão deletados
+                </p>
+              </div>
+
+              <div className="flex space-x-3">
+                <button
+                  onClick={() => setShowDeleteConfirm(false)}
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium"
+                  disabled={isDeleting}
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium disabled:bg-gray-400 flex items-center justify-center"
+                  disabled={isDeleting}
+                >
+                  {isDeleting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Excluindo...
+                    </>
+                  ) : (
+                    'Excluir Definitivamente'
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Modal de Confirmação de Reset de Senha */}
+        {showResetPasswordConfirm && (
+          <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+              <div className="flex items-center mb-4">
+                <div className="text-4xl mr-4">🔑</div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900">Redefinir Senha</h3>
+                  <p className="text-sm text-gray-600">Restaurar para senha padrão</p>
+                </div>
+              </div>
+              
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                <p className="text-sm text-yellow-800 mb-2">
+                  Redefinir senha para <strong>{user.profile.name}</strong>:
+                </p>
+                <p className="text-sm text-yellow-700 mt-2">
+                  ✓ Senha será redefinida para: <strong className="font-mono">Sisgead@2024</strong><br />
+                  ✓ Usuário será forçado a criar nova senha no próximo login<br />
+                  ✓ Bloqueio de conta será removido (se existir)
+                </p>
+              </div>
+
+              <div className="flex space-x-3">
+                <button
+                  onClick={() => setShowResetPasswordConfirm(false)}
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium"
+                  disabled={isResettingPassword}
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={handleResetPassword}
+                  className="flex-1 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 font-medium disabled:bg-gray-400 flex items-center justify-center"
+                  disabled={isResettingPassword}
+                >
+                  {isResettingPassword ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Redefinindo...
+                    </>
+                  ) : (
+                    'Redefinir Senha'
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

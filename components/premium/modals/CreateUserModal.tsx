@@ -64,7 +64,7 @@ export function CreateUserModal({ institutionId, onClose, onSuccess }: CreateUse
         institutionId,
         organizationIds: [formData.organizationId],
         role: formData.role,
-        password: 'temp123', // Senha temporária - usuário deve trocar no primeiro login
+        password: 'Sisgead@2024', // Senha padrão inicial - usuário deve trocar no primeiro login
         createdBy: 'master-dashboard',
         profile: {
           name: formData.name,
