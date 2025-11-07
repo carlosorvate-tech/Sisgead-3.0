@@ -40,6 +40,11 @@ export const UnifiedAIModal: React.FC = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  
+  // Cache de respostas para evitar reprocessamento
+  const responseCache = useRef<Map<string, string>>(new Map());
+  const cacheHits = useRef<number>(0);
+  const cacheSize = useRef<number>(0);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -310,6 +315,16 @@ Olá! Como posso te ajudar?`;
   };
 
   const simulateAIResponse = async (question: string, context: any): Promise<string> => {
+    // Gerar chave de cache (normalizada)
+    const cacheKey = question.toLowerCase().trim();
+    
+    // Verificar se já temos resposta em cache
+    if (responseCache.current.has(cacheKey)) {
+      cacheHits.current++;
+      console.log(`✅ Cache HIT (${cacheHits.current} hits, ${cacheSize.current} entries): "${question.substring(0, 50)}..."`);
+      return responseCache.current.get(cacheKey)!;
+    }
+    
     // Buscar documentação relevante
     const wikiContext = await wikiService.getContextForAI(question);
     
@@ -319,8 +334,10 @@ Olá! Como posso te ajudar?`;
     // Verificar se é pergunta sobre ajuda/documentação
     const isHelpQuestion = /como|ajuda|suporte|problema|erro|não funciona|tutorial|guia/i.test(question);
     
+    let response: string;
+    
     if (isHelpQuestion && wikiContext && !wikiContext.includes('Nenhuma documentação')) {
-      return `📚 **Encontrei isso na documentação:**
+      response = `📚 **Encontrei isso na documentação:**
 
 ${wikiContext}
 
@@ -329,11 +346,8 @@ ${wikiContext}
 💡 **Minha sugestão**: ${generateSuggestion(question)}
 
 Precisa de mais detalhes sobre algum ponto específico?`;
-    }
-
-    // Resposta simulada contextual
-    if (accessLevel === 'master') {
-      return `📊 **Análise Institucional**
+    } else if (accessLevel === 'master') {
+      response = `📊 **Análise Institucional**
 
 Baseado nos dados de **${context.institution?.name}**, aqui está minha análise:
 
@@ -350,10 +364,8 @@ ${wikiContext && !wikiContext.includes('Nenhuma') ? `\n📚 **Documentação Rel
 3. Gerar relatório consolidado
 
 Como posso detalhar melhor essa análise?`;
-    }
-
-    if (accessLevel === 'org_admin') {
-      return `🏢 **Análise Organizacional**
+    } else if (accessLevel === 'org_admin') {
+      response = `🏢 **Análise Organizacional**
 
 **Suas organizações:**
 ${context.organizations?.map((org: any) => `• ${org.name} (${org.status})`).join('\n') || 'Nenhuma organização'}
@@ -363,9 +375,8 @@ ${wikiContext && !wikiContext.includes('Nenhuma') ? `\n📚 **Documentação Rel
 *Esta é uma resposta simulada. A integração completa com Gemini será ativada no próximo deploy.*
 
 Gostaria de analisar alguma organização específica?`;
-    }
-
-    return `👤 **Resposta Pessoal**
+    } else {
+      response = `👤 **Resposta Pessoal**
 
 Olá ${context.user.name}!
 
@@ -374,6 +385,21 @@ ${wikiContext && !wikiContext.includes('Nenhuma') ? `\n📚 **Documentação Rel
 *Esta é uma resposta simulada. A integração completa com Gemini será ativada no próximo deploy.*
 
 Como posso te ajudar melhor?`;
+    }
+    
+    // Armazenar em cache
+    responseCache.current.set(cacheKey, response);
+    cacheSize.current = responseCache.current.size;
+    console.log(`💾 Cache MISS - Salvando resposta (total: ${cacheSize.current} entries)`);
+    
+    // Limpar cache se ficar muito grande (mais de 100 entradas)
+    if (responseCache.current.size > 100) {
+      const firstKey = responseCache.current.keys().next().value;
+      responseCache.current.delete(firstKey);
+      console.log(`🧹 Cache cleanup - Removida entrada mais antiga (novo tamanho: ${responseCache.current.size})`);
+    }
+    
+    return response;
   };
 
   const generateSuggestion = (question: string): string => {
